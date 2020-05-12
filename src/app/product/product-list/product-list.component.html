@@ -1,0 +1,7 @@
+<p>Products Page</p>
+
+<div *ngFor="let product of products">
+    <nav>
+        <a [routerLink]= "['/dashboard/product', product.id]" >{{ product.name }}</a>
+    </nav>
+</div>

@@ -1,0 +1,266 @@
+@font-face {
+    font-family: Montserrat-Regular;
+    src: url('/src/assets/fonts/montserrat/Montserrat-Regular.ttf'); 
+}
+  
+@font-face {
+    font-family: Montserrat-Bold;
+    src: url('/src/assets/fonts/montserrat/Montserrat-Bold.ttf'); 
+}
+
+@font-face {
+    font-family: Montserrat-Black;
+    src: url('/src/assets/fonts/montserrat/Montserrat-Black.ttf'); 
+}
+
+@font-face {
+    font-family: Montserrat-SemiBold;
+    src: url('/src/assets/fonts/montserrat/Montserrat-SemiBold.ttf'); 
+}
+
+@font-face {
+    font-family: Montserrat-Medium;
+    src: url('/src/assets/fonts/montserrat/Montserrat-Medium.ttf'); 
+}
+
+body{
+    margin: 0;
+    /*padding: 0;*/
+    /*background: url(pic5.jpg);*/
+    background-size: cover;
+    /*background-position: center;*/
+    font-family: sans-serif;
+}
+.animation-area{
+    background: linear-gradient(to left,#8942a8,#ba382f);
+    /*width: 100%;*/
+    height: 120vh;
+}
+.box-area{
+    top: 0;
+    left: 0;
+    /*width: 100%;*/
+    height: 10%;
+}
+.box-area li{
+    position: absolute;
+    display: block;
+    list-style: none;
+    width:25px;
+    height: 25px;
+    background: rgba(255,255,255,0.2);
+    animation: animate 20s linear infinite;
+    bottom: -150px;
+}
+.box-area li:nth-child(1){
+    left: 86%;
+    width: 80px;
+    height: 80px;
+    animation-delay: 0s;
+}
+
+.box-area li:nth-child(2){
+    left: 12%;
+    width: 30px;
+    height: 30px;
+    animation-delay: 1.5s;
+    animation-duration: 10s;
+}
+
+.box-area li:nth-child(3){
+    left: 70%;
+    width: 100px;
+    height: 100px;
+    animation-delay: 5.5s;
+}
+
+.box-area li:nth-child(4){
+    left: 42%;
+    width: 150px;
+    height: 150px;
+    animation-delay: 0s;
+    animation-duration: 15s;
+}
+
+.box-area li:nth-child(5){
+    left: 65%;
+    width: 40px;
+    height: 40px;
+    animation-delay: 0s;
+}
+
+.box-area li:nth-child(6){
+    left: 15%;
+    width: 110px;
+    height: 110px;
+    animation-delay: 3.5s;
+}
+@keyframes animate{
+    0%{
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100%{
+        transform: translateY(-800px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.loginbox{
+    width:460px;
+    height:540px;
+    background: #000;
+    opacity: 100%;
+    color:#fff;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    padding: 70px 30px;
+}
+
+.register-form{
+    width:400px;
+    height: 550px;
+    background: #000;
+    opacity: 0.85;
+    color:#fff;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    padding: 70px 30px;
+}
+
+.f_left {
+  float: left;
+  width: 48%;
+}
+
+.l_right {
+  float: right;
+  width: 48%;
+}
+
+.l_uname {
+  float: left;
+  width: 48%;
+}
+
+.r_email {
+  float: right;
+  width: 48%;
+}
+
+.l_phone {
+    float: left;
+    width: 48%;
+}
+
+.password {
+    float: right;
+    width: 48%;
+}
+
+.avatar{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    position: absolute;
+    top: -50px;
+    left: calc(50% - 50px);
+    transition: transform .5s ease;
+}
+
+.avatar:hover{
+  transform: scale(1.5);
+}
+
+h1{
+    margin: 0;
+    padding: 0 0 20px;
+    text-align: center;
+    font-size: 20px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.loginbox p{
+    margin: 0;
+    padding: 0;
+    font-weight: bold;    
+}
+
+.loginbox input{
+    width: 100%;
+    margin-bottom: 20px;
+    
+}
+
+.loginbox input[type="text"], input[type="password"]
+{
+    border: none;
+    border-bottom: 1px solid #fff;
+    background: transparent;
+    outline: none;
+    height: 40px;
+    color: #fff;
+    font-size: 16px;
+}
+
+.loginbox input[type="submit"]
+{
+    border: none;
+    outline: none;
+    height: 35px;
+    text-align: center;
+    background: #fb2525;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 13px;
+}
+
+.loginbox button {
+    border: none;
+    outline: none;
+    height: 40px;
+    background: #fb2525;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 20px;
+}
+
+.loginbox button :hover {
+    cursor: pointer;
+    background: #ffc107;
+    color: #000;
+}
+
+.loginbox input[type="submit"]:hover
+{
+    cursor: pointer;
+    background: #ffc107;
+    color: #000;
+}
+
+.loginbox a{
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 20px;
+    color: darkgrey;
+}
+
+.loginbox a:hover
+{
+    color:#ffc107;
+}
+
+.form .register-form{
+    display: none;
+}
+
+.validate-message p{
+    font-size: smaller;
+    color: #fb2525;
+}

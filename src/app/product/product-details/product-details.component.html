@@ -1,0 +1,19 @@
+<div *ngIf="product">
+   <h3>Name: {{ product.name }}</h3>
+    <p>Description: {{ product.desc }}</p>
+    <p>Age(In Months): {{ product.age }}</p>
+    <p>Category: {{ product.category }}</p>
+    <p>Date of availability: {{ product.doa }}</p>
+    <p>Duration: {{ product.duration }}</p>
+    <button (click)="addToCart($event)">Add to Cart!</button>
+</div>
+Message:
+{{ availabilityMessage }}
+<br>
+{{ expiryMessage }}
+
+<button></button>
+
+
+
+

@@ -1,0 +1,46 @@
+
+<from [formGroup]="productAdditionForm" (ngSubmit)="addProduct()">
+    <div>
+        <p>Product Name</p>
+        <input type="text" placeholder="Product name" formControlName="name" required>
+        <small *ngIf="productAdditionForm.get('name').errors?.error">Character limit exceeded</small>
+    </div>
+
+    <div>
+        <p>Age</p>
+        <input type="text" placeholder="Age" formControlName="age" required>
+        <small *ngIf="productAdditionForm.get('age').errors?.error">Should be numeric</small>
+    </div>
+
+    <div>
+        <p>Deescription</p>
+        <input type="text" placeholder="Deescription" formControlName="desc" required>
+    </div>
+
+    <div>
+        <p>Category</p>
+        <input type="text" placeholder="Category" formControlName="category" required>
+    </div>
+
+    <div>
+        <p>Date of Availability</p>
+        <input type="text" placeholder="Date of Availability" formControlName="doa" required>
+    </div>
+
+    <div>
+        <p>Duration</p>
+        <input type="text" placeholder="Duration" formControlName="duration" required>
+        <small *ngIf="productAdditionForm.get('duration').errors?.error">Should be numeric</small>
+    </div>
+
+    <div>
+        <p>Price</p>
+        <input type="text" placeholder="Price" formControlName="price" required>
+        <small *ngIf="productAdditionForm.get('price').errors?.error">Should be numeric</small>
+    </div>
+
+
+
+    <br>
+    <button type="submit" [disabled]="!productAdditionForm.valid" (click)=addProduct()>Proceed</button>
+</from>

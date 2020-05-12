@@ -1,0 +1,61 @@
+
+
+
+<container-element [ngSwitch] = "selector">
+    <app-product-addition-form *ngSwitchCase= "1"  (newFormEvent) = "getProductDetails($event)"></app-product-addition-form>
+
+    <!-- <app-image-handler *ngSwitchCase= "2"  (file) = "getImageFile($event)" ></app-image-handler> -->
+</container-element>
+
+
+<button (click) = "uploadProductDetails()">Commit</button>
+
+
+
+
+
+
+
+
+<!-- 
+<from [formGroup]="productAdditionForm" (ngSubmit)="addProduct()">
+    <div>
+        <p>Product Name</p>
+        <input type="text" placeholder="Product name" formControlName="name" required>
+    </div>
+
+    <div>
+        <p>Age</p>
+        <input type="text" placeholder="Age" formControlName="age" required>
+    </div>
+
+    <div>
+        <p>Deescription</p>
+        <input type="text" placeholder="Deescription" formControlName="desc" required>
+    </div>
+
+    <div>
+        <p>Category</p>
+        <input type="text" placeholder="Category" formControlName="category" required>
+    </div>
+
+    <div>
+        <p>Date of Availability</p>
+        <input type="text" placeholder="Date of Availability" formControlName="doa" required>
+    </div>
+
+    <div>
+        <p>Duration</p>
+        <input type="text" placeholder="Duration" formControlName="duration" required>
+    </div>
+
+    <div>
+        <p>Price</p>
+        <input type="text" placeholder="Price" formControlName="price" required>
+    </div>
+
+
+
+    <br>
+    <button type="submit" [disabled]="!productAdditionForm.valid" (click)=addProduct()>Proceed</button>
+</from> -->

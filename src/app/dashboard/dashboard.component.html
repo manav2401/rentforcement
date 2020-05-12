@@ -1,0 +1,43 @@
+<h1>RentForcement Dashboard</h1>
+<container-element  [ngSwitch]="selector">
+    <app-product-list [category]="category" *ngSwitchCase="1"></app-product-list>
+    <app-product-details *ngSwitchCase="2"></app-product-details>
+    <app-product-addition *ngSwitchCase="3"></app-product-addition>
+</container-element>
+<br>
+<div class = "left">
+    <a (click)="goToListByCategory(1)">All</a><br>
+    <a (click)="goToListByCategory(2)">Clothes</a><br>
+    <a (click)="goToListByCategory(3)">Electronics</a><br>
+    <a (click)="goToListByCategory(4)">Household</a><br>
+    <a (click)="goToListByCategory(5)">Games</a><br>
+    <a (click)="goToListByCategory(6)">Industrial</a><br>
+    <a (click)="goToListByCategory(7)">Other</a><br>    
+</div>
+
+
+
+<div class = "right">
+    <!-- <button (click)="goToAddProduct()">Add Product</button> -->
+    <a (click)="goToAddProduct()">Add</a>
+</div>
+
+
+<!-- <div class = "right">
+    <a [routerLink] = "['/dashboard/addProduct/', 'all']">Add Product</a><br>
+   
+    <a [routerLink] = "['/dashboard/viewSelf/', 'Clothes']">View Your Products</a><br>
+    <a [routerLink] = "['/dashboard/viewOther/', 'Electronics']">View All Products</a><br> 
+</div> -->
+
+
+<!-- <div class = "left">
+    
+    <a [routerLink] = "['/dashboard/products/', 'all']">All</a><br>
+    <a [routerLink] = "['/dashboard/products/', 'Clothes']">Clothes</a><br>
+    <a [routerLink] = "['/dashboard/products/', 'Electronics']">Electronics</a><br> 
+    <a [routerLink] = "['/dashboard/products/', 'Household']">Household</a><br>
+    <a [routerLink] = "['/dashboard/products/', 'Games']">Games</a><br>
+    <a [routerLink] = "['/dashboard/products/', 'Industrial']">Industrial</a><br>
+    <a [routerLink] = "['/dashboard/products/', 'Other']">Other</a><br>
+</div> -->

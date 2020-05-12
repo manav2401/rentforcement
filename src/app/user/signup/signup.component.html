@@ -1,0 +1,156 @@
+<link rel="stylesheet" type="text/css" href="signup.component.css">
+    
+<div class="loginbox">
+    <h1 align="center">Renting made easy @RentForcement</h1>
+
+    <div class="f_left">
+        First Name
+        <!-- <div class="validate-message" *ngIf="flag[0]==0 || usr.fname==''">
+            <p>Please fill in this field!</p>
+        </div>
+        <div *ngIf="flag[0]==1 || usr.fname!=''">
+            <br>
+        </div> -->
+        <div class="validate-message" *ngIf="usr.fname==''">
+            <p>Please fill in this field!</p>
+        </div>
+        <div *ngIf="usr.fname!=''">
+            <br>
+        </div>
+        <input 
+            type="text" 
+            name="fname" 
+            id="fname" 
+            placeholder="Enter first name"
+            [(ngModel)]="usr.fname">
+    </div>
+
+    <div class="l_right">
+        Last Name
+        <!-- <div class="validate-message" *ngIf="flag[1]==0 || usr.lname==''">
+            <p>Please fill in this field!</p>
+        </div>
+        <div *ngIf="flag[1]==1 || usr.lname!=''">
+            <br>
+        </div> -->
+        <div class="validate-message" *ngIf="usr.lname==''">
+            <p>Please fill in this field!</p>
+        </div>
+        <div *ngIf="usr.lname!=''">
+            <br>
+        </div>
+        <input 
+            type="text" 
+            name="lname" 
+            id="lname" 
+            placeholder="Enter last name"
+            [(ngModel)]="usr.lname">
+    </div>
+
+    <div class="l_uname">
+        Username
+        <!-- <div class="validate-message" *ngIf="flag[2]==0 || usr.username==''">
+            <p>Please fill in this field!</p>
+        </div>
+        <div *ngIf="flag[2]==1 || usr.username!=''">
+            <br>
+        </div> -->
+        <div class="validate-message" *ngIf="usr.username==''">
+            <p>Please fill in this field!</p>
+        </div>
+        <div *ngIf="usr.username!=''">
+            <br>
+        </div>
+        <input 
+            type="text"     
+            name="username" 
+            id="username" 
+            placeholder="Enter username"
+            [(ngModel)]="usr.username">
+    </div>
+
+    <div class="r_email">
+        Email Address
+        <!-- <div class="validate-message" *ngIf="flag[3]==0 || usr.emailaddr==''">
+            <p>Please fill in this field!</p>
+        </div>
+        <div *ngIf="flag[3]==1 || usr.emailaddr!=''">
+            <br>
+        </div> -->
+        <div class="validate-message" *ngIf="usr.emailaddr==''">
+            <p>Please fill in this field!</p>
+        </div>
+        <div *ngIf="usr.emailaddr!=''">
+            <br>
+        </div>
+        <input 
+            type="text" 
+            name="email" 
+            id="email" 
+            placeholder="Enter email address"
+            [(ngModel)]="usr.emailaddr">
+    </div>
+
+    <div class="l_phone">
+        Contact Number
+        <!-- <div class="validate-message" *ngIf="flag[4]==0 || usr.phone==''">
+            <p>Please fill in this field!</p>
+        </div>
+        <div *ngIf="flag[4]==1 || usr.phone!=''">
+            <br>
+        </div> -->
+        <div class="validate-message" *ngIf="usr.phone==''">
+            <p>Please fill in this field!</p>
+        </div>
+        <div *ngIf="usr.phone!=''">
+            <br>
+        </div>
+        <input 
+            type="text" 
+            name="phone" 
+            id="phone" 
+            placeholder="Enter contact number"
+            [(ngModel)]="usr.phone">
+    </div>
+
+    <div class="password">
+    Password
+    <!-- <div class="validate-message" *ngIf="flag[5]==0 || usr.password==''">
+        <p>Please fill in this field!</p>
+    </div>
+    <div *ngIf="flag[5]==1 || usr.password!=''">
+        <br>
+    </div> -->
+    <div class="validate-message" *ngIf="usr.password==''">
+        <p>Please fill in this field!</p>
+    </div>
+    <div *ngIf="usr.password!=''">
+        <br>
+    </div>
+    <input 
+        type="password" 
+        name="password" 
+        id="password" 
+        placeholder="Enter password"
+        [(ngModel)]="usr.password">
+    </div>
+
+    <input 
+        type="submit" 
+        name="signup" 
+        value="Sign Up"  
+        (click)="saveUserDetails($event, usr)">
+
+</div>
+
+<!-- <div class="animation-area">
+    <ul class="box-area">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div> -->
+<router-outlet></router-outlet>
