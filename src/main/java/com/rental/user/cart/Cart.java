@@ -18,6 +18,10 @@ public class Cart {
     @Column(name = "productid")
     private int productid;
 
+    public Cart() {
+        
+    }
+
     public Cart(int userid, int productid) {
         this.userid = userid;
         this.productid = productid;
