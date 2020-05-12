@@ -85,4 +85,14 @@ export class ProductService {
      }
      return this.http.post(ADD_PRODUCT_TO_CART_URL, productId, headers);
    }
+
+   fetchProductsInCart(username: String) : Observable<any> {
+     const FETCH_PRODUCTS_IN_CART_URL: string = "http://localhost:8080/displayProductsInCart/" + username;
+     /*const headers = {
+       headers: new HttpHeaders({
+         "token": localStorage.getItem("username")
+       })
+     }*/
+     return this.http.get<Product[]>(FETCH_PRODUCTS_IN_CART_URL);
+   }
 }

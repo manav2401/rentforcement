@@ -148,6 +148,10 @@ export class ProductDetailsComponent implements OnInit {
     if (localStorage.getItem("username")==null) {
       this.route.navigate(['login']);
     } else {
+      this.prodService.addProductToCart(this.product.id).subscribe(
+        data => console.log("Product Added to Cart!" + data),
+        error => console.log("Error in adding product!" + error)        
+      )
       const cart_url = "cart"
       const url = `${cart_url}/${localStorage.getItem("username")}`
       this.route.navigate([url])

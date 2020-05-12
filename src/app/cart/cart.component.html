@@ -1,4 +1,15 @@
 <h3>Products in cart!</h3>
+
+<div class="Message" *ngIf="errorFlag==1">
+    <p>Error in fetching products!</p> 
+</div>
+
+<div *ngFor="let product of products">
+    <nav>
+        {{ product.name }}
+    </nav>
+</div>
+
 <!-- ngfor here -->
 <button (click)="backToHome($event)">Back to Home</button>
 <button (click)="checkout($event)">Proceed to Checkout</button>
