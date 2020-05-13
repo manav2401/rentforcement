@@ -15,8 +15,11 @@
         <br><br>
     </div>
     <h3>Cart Total: {{ totalSum | currency:'INR' }}</h3>
+    <button (click)="checkout($event)">Proceed to Checkout</button>
 </ng-template>
 
 <button (click)="backToHome($event)">Back to Home</button>
-<button (click)="checkout($event)">Proceed to Checkout</button>
+
+<br><br>
+<!-- <router-outlet></router-outlet> -->
 

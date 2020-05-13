@@ -5,8 +5,6 @@ import { ProductService } from '../product.service';
 import { formatDate } from '@angular/common';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 
-
-
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
@@ -19,24 +17,19 @@ export class ProductDetailsComponent implements OnInit {
   expiryMessage: string;
   availabilityMessage: string;
   test: string;
-  dateOfAvailibility: Date;
+  daysAvailable: number = 0;
+  currDate: Date = new Date();
+  productDate: Date;
 
   constructor(private route: Router, 
     private prodService: ProductService,
-     ) {
+  ) {
       this.product = new Product();
-      //  this.testProduct = new Product();
-      //  this.testProduct.age = 17;
-      //  console.log(this.testProduct.age);
-       console.log("Initialized Constructor");
-       this.availabilityMessage = "";
-       this.expiryMessage = "";
-
+      this.availabilityMessage = "";
+      this.expiryMessage = "";
   }
 
-
   ngOnInit(): void {
-    console.log("Initialized ng function");
     this.getProductDetails(this.getProductIdFromUrl());
   }
 
@@ -49,89 +42,25 @@ export class ProductDetailsComponent implements OnInit {
 
   getProductDetails(prodId: number): void{
 
-
-    // this.prodService.getProductDetails(prodId).subscribe((data: Product) => this.product = {
-    //   id: data['id'],
-    //   name: data['name'],
-    //   age: data['age'],
-    //   desc: data['desc'],
-    //   category: data['category'],
-    //   doa: data['doa'],
-    //   duration: data['duration'],
-    //   available: data['available']
-    // });
-
-    
-    this.prodService.getProductDetails(prodId).subscribe((data: Product) => { this.setProduct(data) });
-      // this.product = data;
-      // console.log(data['id']);
-      // console.log(typeof(data['doa']));
-      // console.log(this.product);
-      // this.test = data['doa']});
-
-      //console.log("Data is " + this.product.id);
-      
+    this.prodService.getProductDetails(prodId).subscribe(
+      data => this.setProduct(data),
+      error => console.log("Error in fetching product details!")
+    ) 
   }
 
 
   setProduct(data){
     this.product = data;
-    this.dateOfAvailibility = new Date(this.product.doa);
-    console.log("Data is " + this.product.id);
-    this.checkProductAvailability();
-    this.checkProductExpiry();
-  }
-
-  getCurrentDate(): Array<number>{
-
-    let today: String = formatDate(new Date(),'dd-MM-yyyy','en');
-    let arr: Array<string> = today.split('-',3);
-    let currentDate: Array<number>;
-    currentDate = [ Number(arr[0]), Number(arr[1]), Number(arr[2])];
-
-    //console.log(currentDate[1]);
-    return currentDate;
-  }
-
-  getProductDate(doa: string): Array<number>{
-    let arr: Array<string> = doa.split('/',3);
-    let productDate: Array<number> = [ Number(arr[0]), Number(arr[1]), Number(arr[2])];
-    return productDate;
-  }
-
-  
-
-  checkProductExpiry(): boolean{
-    // let doa: Date = this.product.doa;
-    // let cDate = this.getCurrentDate();
-    // console.log("Checking for product expiry " + this.product.doa);
-    // let pDate = this.getProductDate(doa);
-
-    // let temp: boolean = false;
-
-    // if(pDate[2] > cDate[2]){
-    //   temp = true;
-    // }
-    // else if(pDate[1] > cDate[1]){
-    //   temp = true;
-    // }
-    // else if(pDate[0] > cDate[0]){
-    //   temp = true;
-    // }
-    // if(temp){
-    //   this.expiryMessage = "Product Renting period has Expired!!!";
-    //   this.product.available = false;
-    // }
-    // else{
-    //   this.expiryMessage = "";
-    // }
-    // return temp;
-    return false;
-
-  }
-  checkProductAvailability(): void{
-    if(this.product.available){
-      this.availabilityMessage = "Product is available!!!!";
+    this.productDate = new Date(this.product.doa);
+    let d1: number = this.product.duration
+    let d2: number = this.currDate.getTime() - this.productDate.getTime();
+    d2 = Math.round(d2 / (1000 * 3600 * 24));
+    if (d2 < 0) {
+      this.availabilityMessage = "This product currently not available!";
+    } else {
+      let num: number = 0;
+      num = d1 - d2;
+      this.availabilityMessage = "This product is available for next " + num.toString() + " days";
     }
   }
 

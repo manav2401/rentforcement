@@ -1,0 +1,33 @@
+<h3>Products in cart!</h3>
+
+<div class="Message" *ngIf="errorFlag==1">
+    <p>Error in fetching products!</p> 
+</div>
+
+<div class="Message" *ngIf="prodLength==0; else elseBlock">
+    <p>Your Cart is Empty!</p>
+</div>
+<ng-template #elseBlock>
+    <div *ngFor="let product of products">
+        <h3>
+            {{ product.name }}
+            &nbsp;&nbsp; 
+            {{ product.price | currency:'INR' }}
+            &nbsp;&nbsp;
+        </h3>
+        <!-- select date here -->
+    </div>
+    <h3>Cart Total: {{ totalSum | currency:'INR' }}</h3>
+    <h3>Fixed Delivery Charge: {{ fixedDeliveryCharge | currency:'INR' }}</h3>
+    <h3>Total Amount Payable: {{ grandTotal | currency:'INR' }}</h3>
+    <div class="AllValidations" *ngIf="allValidations==1">
+        <button (click)="placeOrder($event)">Place Order</button>
+    </div>
+
+</ng-template>
+
+<button (click)="backToCart($event)">Back to Cart</button>
+
+<br><br>
+<!-- <router-outlet></router-outlet> -->
+

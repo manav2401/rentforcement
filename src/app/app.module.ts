@@ -26,6 +26,7 @@ import { ProductListComponent } from './product/product-list/product-list.compon
 import { ImageHandlerComponent } from './image-handler/image-handler.component';
 import { DemoMaterialModule } from './test/test-module';
 import { CartComponent } from './cart/cart.component';
+import { OrderComponent } from './cart/order/order.component';
 
 const routes: Routes = [
   {
@@ -75,6 +76,10 @@ const routes: Routes = [
   {
     path: 'cart/:username',
     component: CartComponent
+  },
+  {
+    path: 'checkout',
+    component: OrderComponent
   }
 ]
 
@@ -93,7 +98,8 @@ const routes: Routes = [
     ProductDetailsComponent,
     ProductListComponent,
     ImageHandlerComponent,
-    CartComponent
+    CartComponent,
+    OrderComponent
   ],
   imports: [
     BrowserModule,

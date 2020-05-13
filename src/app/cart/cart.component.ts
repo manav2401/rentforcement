@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ProductService } from '../product/product.service';
 import { Product } from '../product/product';
@@ -30,6 +30,8 @@ export class CartComponent implements OnInit {
   errorFlag: number;
   prodLength: number = 0;
   totalSum: number = 0;
+  
+  // For angular table: Left
   cartEle: CartElement[];
   columns: string[] = ['No', 'Product Name', 'Product Price'];
 
@@ -72,7 +74,7 @@ export class CartComponent implements OnInit {
     this.totalSum = 0;
     this.products.forEach(element => {
       this.totalSum = this.totalSum + element.price;
-      this.cartEle.push(new CartElement(element.name, element.price));
+      // this.cartEle.push(new CartElement(element.name, element.price));
     });
   }
 
@@ -97,6 +99,7 @@ export class CartComponent implements OnInit {
 
   checkout(event) {
     // redirect to checkout
+    this.route.navigate(['checkout']);
   }
 
 }
