@@ -20,6 +20,7 @@ export class ProductDetailsComponent implements OnInit {
   daysAvailable: number = 0;
   currDate: Date = new Date();
   productDate: Date;
+  available: boolean = true;
 
   constructor(private route: Router, 
     private prodService: ProductService,
@@ -30,6 +31,7 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.available = true;
     this.getProductDetails(this.getProductIdFromUrl());
   }
 
@@ -54,13 +56,19 @@ export class ProductDetailsComponent implements OnInit {
     this.productDate = new Date(this.product.doa);
     let d1: number = this.product.duration
     let d2: number = this.currDate.getTime() - this.productDate.getTime();
-    d2 = Math.round(d2 / (1000 * 3600 * 24));
+    d2 = Math.floor(d2 / (1000 * 3600 * 24));
+    // console.log("D1: " + d1 + "D2: " + d2);
     if (d2 < 0) {
-      this.availabilityMessage = "This product currently not available!";
+      this.availabilityMessage = "This product currently not available for rent!";
+      this.available = false;
+    } else if ((d1-d2)<=0){
+      this.availabilityMessage = "This product is no longer available for rent!"
+      this.available = false;
     } else {
       let num: number = 0;
       num = d1 - d2;
       this.availabilityMessage = "This product is available for next " + num.toString() + " days";
+      this.available = true;
     }
   }
 

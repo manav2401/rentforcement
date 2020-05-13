@@ -50,7 +50,7 @@ export class ProductService {
     this.url_add = "http://localhost:8080/addProduct";
     const headers = {
       headers : new HttpHeaders({
-        "token": "manav_2401"
+        "token": localStorage.getItem("username")
       })
     }  
     console.log("About to fire post query on " + this.url_add);

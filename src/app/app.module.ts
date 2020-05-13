@@ -27,6 +27,7 @@ import { ImageHandlerComponent } from './image-handler/image-handler.component';
 import { DemoMaterialModule } from './test/test-module';
 import { CartComponent } from './cart/cart.component';
 import { OrderComponent } from './cart/order/order.component';
+import { OrderDetailsComponent } from './dashboard/order-details/order-details.component';
 
 const routes: Routes = [
   {
@@ -80,6 +81,10 @@ const routes: Routes = [
   {
     path: 'checkout',
     component: OrderComponent
+  },
+  {
+    path: 'orders', 
+    component: OrderDetailsComponent
   }
 ]
 
@@ -99,7 +104,8 @@ const routes: Routes = [
     ProductListComponent,
     ImageHandlerComponent,
     CartComponent,
-    OrderComponent
+    OrderComponent,
+    OrderDetailsComponent
   ],
   imports: [
     BrowserModule,

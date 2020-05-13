@@ -2,28 +2,24 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { order } from '../cart/order';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class DashboardService {
 
-    URL_OPEN = "http://localhost/4501/open";
-    URL_REST = "http://localhost/4501/rest"
+  FETCH_ORDERS_URL: string = "http://localhost:8080/orders";
 
-    constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-    openPostRequest(obj) : Observable<any> {
-      return this.http.post(this.URL_OPEN, obj);
+  fetchOrders() : Observable<any> {
+    const headers = {
+      headers : new HttpHeaders({
+        "token": localStorage.getItem("username")
+      })
     }
-
-    userPostRequest(obj) : Observable<any> {
-      const headers = {
-        headers: new HttpHeaders({
-          "token": localStorage.getItem("username")
-        })
-      }
-      return this.http.post(this.URL_REST, obj, headers);
-    }
+    return this.http.get<order[]>(this.FETCH_ORDERS_URL, headers);
+  }
 
 }

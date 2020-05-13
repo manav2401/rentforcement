@@ -8,26 +8,51 @@
     <p>Your Cart is Empty!</p>
 </div>
 <ng-template #elseBlock>
-    <div *ngFor="let product of products">
+    <div *ngFor="let product of products; index as i">
         <h3>
+            Product:
             {{ product.name }}
             &nbsp;&nbsp; 
+            Rate Per Day:
             {{ product.price | currency:'INR' }}
             &nbsp;&nbsp;
+            <br>
+            Choose Date until you want {{product.name}} on rent
+            <div>
+                <mat-form-field>
+                    <mat-label>Choose Date</mat-label>
+                    <input 
+                    matInput 
+                    [min]="minDate" 
+                    [max]="maxDate[i]" 
+                    [matDatepicker]="picker"
+                    (dateInput)="dateInput($event, i)"
+                    [(ngModel)]="endDates[i]"
+                    >
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker [startAt]="startDate"></mat-datepicker>
+                </mat-form-field>
+            </div>
+            &nbsp;&nbsp;
+            Net amount: 
+            {{ productAmount[i] | currency:'INR'}}
         </h3>
-        <!-- select date here -->
+    
     </div>
-    <h3>Cart Total: {{ totalSum | currency:'INR' }}</h3>
-    <h3>Fixed Delivery Charge: {{ fixedDeliveryCharge | currency:'INR' }}</h3>
-    <h3>Total Amount Payable: {{ grandTotal | currency:'INR' }}</h3>
-    <div class="AllValidations" *ngIf="allValidations==1">
-        <button (click)="placeOrder($event)">Place Order</button>
+
+    <div class="TotalAmount" *ngIf="totalSum!=0; else elseBlock">
+        <br><br>
+        <h3>Cart Total: {{ totalSum | currency:'INR' }}</h3>
+        <h3>Fixed Delivery Charge: {{ fixedDeliveryCharge | currency:'INR' }}</h3>
+        <h3>Total Amount Payable: {{ grandTotal | currency:'INR' }}</h3>    
+        <button (click)="placeOrder($event)"><h3>Place Order</h3></button>
     </div>
+    <ng-template #elseBlock>
+        <h3>Please Choose Dates first!</h3>
+    </ng-template>
 
 </ng-template>
 
-<button (click)="backToCart($event)">Back to Cart</button>
+<button (click)="backToCart($event)"><h4>Back to Cart</h4></button>
 
 <br><br>
-<!-- <router-outlet></router-outlet> -->
-

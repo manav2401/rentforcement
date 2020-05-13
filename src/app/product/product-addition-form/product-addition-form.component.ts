@@ -55,7 +55,8 @@ export class ProductAdditionFormComponent implements OnInit {
   addProduct(): void{
 
     this.product = this.productAdditionForm.value;
-    console.log("Child " + this.product.name);
+    this.product.doa = this.selectedDate;
+    // console.log("Child " + this.product.name);
     this.newFormEvent.emit(this.productAdditionForm);
 
 
@@ -74,7 +75,8 @@ export class ProductAdditionFormComponent implements OnInit {
   dateInput(event) {
     console.log(event.value)
     const temp: Date = event.value;
-    this.dateInput = temp.toDateString;
+    // this.dateInput = temp.toDateString;
+    this.selectedDate = temp.toDateString();
   }
 
   

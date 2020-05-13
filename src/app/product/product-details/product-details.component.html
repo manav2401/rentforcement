@@ -8,7 +8,10 @@
     <!-- <p>Product Available for next {{daysAvailable}} days!</p> -->
     <p>Price: {{ product.price }}</p> 
     <p>{{availabilityMessage}}</p>
-    <button (click)="addToCart($event)">Add to Cart!</button>
+    <div class="checkAvailability" *ngIf="available==true">
+        <button (click)="addToCart($event)">Add to Cart!</button>
+    </div>
+    
 </div>
 <!-- Message:
 {{ availabilityMessage }}

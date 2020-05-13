@@ -1,0 +1,24 @@
+<!-- <div class="CheckLength" *ngIf="orders.length!=0; else elseBlock"> -->
+    <div class="viewOrders" *ngFor="let ord of orders">
+        <h3>
+            Order ID: {{ord.id}}
+            <br>
+        </h3>
+        <h4>
+            Product ID: {{ord.prodid}}
+            <br>
+            Order Placed On: {{ord.startDate}}
+            <br>
+            Order Till: {{ord.endDate}}
+            <br>
+            Total Amount: {{ord.amount}}
+            <br>
+            Order Status: {{ord.orderStatus}}
+            <br><br>
+        </h4>
+    </div>
+<!-- </div> -->
+<!-- <ng-template #elseBlock>
+    <h3>No Orders till now!</h3>
+</ng-template> -->
+

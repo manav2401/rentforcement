@@ -1,5 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { order } from '../cart/order';
+import { DashboardService } from './dashboard.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,14 +13,18 @@ export class DashboardComponent implements OnInit {
   currentUrl: String;
   arr: String[];
   selector: number;
-
+  orders: order[];
+  session: number = 0;
+  ordersFetched: number = 0;
 
   category: String;
   id: number;
 
   navigationSubscription: any;
 
-  constructor(private route: Router) {
+  constructor(private route: Router,
+    private dashboardService: DashboardService
+    ) {
     this.selector = 0;
     this.navigationSubscription = this.route.events.subscribe((e: any) => {
       // If it is a NavigationEnd event re-initalise the component
@@ -31,6 +37,14 @@ export class DashboardComponent implements OnInit {
    }
 
   ngOnInit(): void {
+
+    this.ordersFetched = 0;
+
+    if (localStorage.getItem("username")==null) {
+      this.session = 0;
+    } else {
+      this.session = 1;
+    }
   }
 
 
@@ -58,9 +72,25 @@ export class DashboardComponent implements OnInit {
   //   this.route.navigate([this.currentUrl]);
   // }
 
+  fetchOrders() {
+
+    console.log("In function!");
+    if (this.session==0) {
+      this.route.navigate(['login']);
+    } else {
+      this.session = 1;
+      this.route.navigate(["/orders"]);
+    }
+
+  }
+
 
   goToAddProduct(): void{
-    this.route.navigate(["/dashboard/addProduct"]);
+    if (this.session==0) {
+      this.route.navigate(['login'])
+    } else {
+      this.route.navigate(["/dashboard/addProduct"]);
+    }
   }
 
   goToListByCategory( num : any ): void{

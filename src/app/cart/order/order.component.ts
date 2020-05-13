@@ -2,6 +2,8 @@ import { Component, OnInit, Input, OnChanges, SimpleChange, SimpleChanges } from
 import { Product } from 'src/app/product/product';
 import { Router, Params, ActivatedRoute } from '@angular/router';
 import { ProductService } from 'src/app/product/product.service';
+import { order } from '../order';
+import { OrderService } from '../order.service';
 
 @Component({
   selector: 'app-order',
@@ -10,23 +12,43 @@ import { ProductService } from 'src/app/product/product.service';
 })
 export class OrderComponent implements OnInit {
 
-  products: Product[];
-  daysAvailable: number[];
-  errorFlag: number = 0;
+  // user and product
   username: string;
+  products: Product[];
   prodLength: number;
-  totalSum: number = 0;
+  endDates;
+  productAmount;
+
+  // flags
+  errorFlag: number = 0;  
   allValidations: number = 0;
+
+  // amounts
+  totalSum: number = 0;
   fixedDeliveryCharge: number = 50;
   grandTotal: number = 0;
+
+  // dates
+  startDate: Date;
+  minDate: Date;
+  maxDate: Date[];
+
+  // order
+  ord: order;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private route: Router,
-    private productService: ProductService
+    private productService: ProductService,
+    private orderService: OrderService,
   ) { }
 
   ngOnInit(): void {
+
+    // add 1 day to min date;
+    let time: number = (new Date()).getTime() + 1*24*3600*1000;
+    this.minDate = new Date(time);
+    this.startDate = this.minDate;
 
     this.errorFlag = 0;
 
@@ -66,20 +88,50 @@ export class OrderComponent implements OnInit {
     this.errorFlag = 0;
     this.products = data;
     this.prodLength = this.products.length;
+    this.endDates = new Array<Date>(this.prodLength);
+    this.maxDate = new Array<Date>(this.prodLength);
+    this.productAmount = new Array<number>(this.prodLength);
     this.totalSum = 0;
-    let dt: Date = new Date();
+    let count = 0;
     this.products.forEach(element => {
-      let elementDate: Date = new Date(element.doa);
-      this.daysAvailable.push((element.duration) - ((dt.getTime()-elementDate.getTime())/(3600*1000*24)));
-      this.totalSum = this.totalSum + element.price;
-      // this.cartEle.push(new CartElement(element.name, element.price));
+      let dt: Date = new Date(element.doa);
+      let time: number = 0;
+      time = dt.getTime() + element.duration * 24 * 3600 * 1000;      
+      // this.totalSum = this.totalSum + element.price;
+      this.maxDate[count] = new Date(time);
+      count = count+1;
     });
-    this.grandTotal = this.totalSum + this.fixedDeliveryCharge;
+    // this.grandTotal = this.totalSum + this.fixedDeliveryCharge;
   }
 
   errorFunc(error) {
     console.log("Error in fetching data!" + error)
     this.errorFlag = 1;
+  }
+
+  dateInput(event, index) {
+    // add end date to final array
+    this.endDates[index] = event.value;
+    this.productAmount[index] = this.calculateTotalAmount(index);
+    if (index==(this.prodLength-1)) {
+      this.productAmount.forEach(element => {
+        this.totalSum = this.totalSum + element;
+      });
+      this.grandTotal = this.totalSum + this.fixedDeliveryCharge;
+      this.allValidations = 1;
+    }
+  }
+
+  calculateTotalAmount(index): number {
+    let days: number = 0;
+    let date: Date = this.endDates[index];
+    let currDate: Date = new Date();
+    currDate.setHours(0);
+    currDate.setMinutes(0);
+    currDate.setSeconds(0);
+    days = date.getTime() - currDate.getTime();
+    days = Math.round(days / (1000 * 3600 * 24));
+    return days*this.products[index].price;
   }
 
   backToCart(event) {
@@ -89,8 +141,29 @@ export class OrderComponent implements OnInit {
   }
 
   placeOrder(event) {
-    // logic here
-  }
 
+    // API Call for order of each product
+    let count: number = 0;
+    this.products.forEach(element => {
+      this.ord = new order();
+      this.ord.id = 1;
+      this.ord.userid = 1;
+      this.ord.prodid = element.id;
+      console.log("PRODUCT ID " + this.ord.prodid);
+      this.ord.startDate = new Date().toDateString();
+      this.ord.endDate = this.endDates[count].toDateString();
+      this.ord.amount = this.productAmount[count];
+      this.ord.userAddress = "Address";
+      this.ord.orderStatus = "Placed";
+      this.orderService.addNewOrder(this.ord).subscribe(
+        data => console.log("Order Placed product:" + count + ": " + data),
+        error => console.log("Error in placing order for product: " + count + ": " + error)
+      )
+      count = count+1;
+    });
+    console.log("All the orders have been placed!");
+    // this.route.navigate(['dashboard'])
+
+  }
 
 }

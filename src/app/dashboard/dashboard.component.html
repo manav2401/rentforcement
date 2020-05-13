@@ -15,7 +15,12 @@
     <a (click)="goToListByCategory(7)">Other</a><br>    
 </div>
 
-
+<div class="ViewOrders">
+    <a (click)="fetchOrders()">View Your Orders</a>
+    <!-- <div class="PrintOrders" *ngFor="let ord of orders">
+        {{ ord | json }}
+    </div> -->
+</div>
 
 <div class = "right">
     <!-- <button (click)="goToAddProduct()">Add Product</button> -->
