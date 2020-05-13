@@ -1,5 +1,6 @@
 package com.rental.product.available;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -10,17 +11,20 @@ public class ProductAvailable {
 	
 	@Id
 	private int id;
-	
-	private boolean available;
-	
-	public ProductAvailable() {
-		
+
+	@Column(name = "enddate")
+	private String enddate;
+
+	public ProductAvailable(int id, String enddate) {
+		this.id = id;
+		this.enddate = enddate;
 	}
 
-	public ProductAvailable(int id, boolean available) {
-		super();
-		this.id = id;
-		this.available = available;
+	public ProductAvailable(String enddate) {
+		this.enddate = enddate;
+	}
+
+	public ProductAvailable() {
 	}
 
 	public int getId() {
@@ -31,15 +35,15 @@ public class ProductAvailable {
 		this.id = id;
 	}
 
-	public boolean isAvailable() {
-		return available;
+	public String getEnddate() {
+		return enddate;
 	}
 
-	public void setAvailable(boolean available) {
-		this.available = available;
+	public void setEnddate(String enddate) {
+		this.enddate = enddate;
 	}
-	
-	
+
+
 	
 
 }

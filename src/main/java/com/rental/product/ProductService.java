@@ -14,6 +14,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import com.rental.handler.CustomException;
 import com.rental.user.User;
+import com.rental.user.UserRepository;
 import com.rental.user.UserService;
 import com.rental.user.content.UserContentService;
 
@@ -28,7 +29,7 @@ public class ProductService {
 	
 	@Autowired 
 	private UserService userService;
-	
+
 	public int addProduct(Product prod, String username) {
 		
 		if(this.validateProduct(prod)) {
@@ -51,6 +52,10 @@ public class ProductService {
 		}
 		
 	}
+
+	public boolean checkIfUserExists(String username) {
+		return userService.checkIfUserExists(username);
+    }
 	
 	public ArrayList<Product> getPoductList(){
 		ArrayList<Product> list = new ArrayList<Product>();

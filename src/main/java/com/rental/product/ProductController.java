@@ -34,20 +34,24 @@ public class ProductController {
 		
 		ObjectMapper map = new ObjectMapper();
 		System.out.println("User name obtained is " + username );
-		
-		String jsonString;
-		int val = productServ.addProduct(product, username); 
-		if( val > 0 ) {
-			jsonString =  map.writeValueAsString("Product added");
+
+		if (productServ.checkIfUserExists(username)) {
+			String jsonString;
+			int val = productServ.addProduct(product, username); 
+			if( val > 0 ) {
+				jsonString =  map.writeValueAsString("Product added");
+				
+				return new ResponseEntity<Integer>(val, HttpStatus.OK);
+				
+			}
+			else {
+				jsonString =  map.writeValueAsString("Product cannot be added");
+				return new ResponseEntity<Integer>(-1, HttpStatus.INTERNAL_SERVER_ERROR);
+			}
 			
-			return new ResponseEntity<Integer>(val, HttpStatus.OK);
-			
+		} else {
+			return new ResponseEntity<Integer>(-1, HttpStatus.INTERNAL_SERVER_ERROR);			
 		}
-		else {
-			jsonString =  map.writeValueAsString("Product cannot be added");
-			return new ResponseEntity<Integer>(-1, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-		
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/products")

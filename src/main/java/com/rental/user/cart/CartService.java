@@ -110,4 +110,13 @@ public class CartService {
         }
     } 
 
+    public Boolean emptyCart(int userId) {
+        ArrayList<Cart> cart = new ArrayList<Cart>();
+        cart = cartRepository.findAllByUserid(userId);
+        for (Cart i : cart) {
+            cartRepository.delete(i);
+        }
+        return true;
+    }
+
 }

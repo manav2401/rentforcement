@@ -57,6 +57,22 @@ public class UserService {
 		ArrayList<User> list = userRepo.findByUsername(username);
 		return  list.get(0);
 	}
+
+	public boolean checkIfUserExists(String username) {
+        ArrayList<User> list = userRepo.findByUsername(username);
+        if (list.size() == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public int getUserIdFromUsername(String username) {
+        // Assuming user already exits
+
+        ArrayList<User> list = userRepo.findByUsername(username);
+        return list.get(0).getUserid();
+    }
 	
 	
 	

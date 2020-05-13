@@ -71,4 +71,13 @@ public class CartController {
         }
     }
 
+    @RequestMapping(value="/emptyCart", method=RequestMethod.DELETE)
+    public ResponseEntity<Boolean> emptyCart(@RequestHeader(name = "token") String username) {
+        Boolean result = cartService.checkIfUserExists(username);
+        if (result) {
+            result = cartService.emptyCart(cartService.getUserIdFromUsername(username));
+        }
+        return new ResponseEntity<Boolean>(result, HttpStatus.OK);
+    }
+
 }
