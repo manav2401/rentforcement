@@ -18,4 +18,14 @@ export class OrderService {
           }
           return this.http.post(this.ADD_NEW_ORDER_URL, currOrder, headers);
     }
+
+    emptyUserCart() : Observable<any> {
+      const EMPTY_CART_URL: string = "http://localhost:8080/emptyCart"
+      const headers = {
+        headers : new HttpHeaders({
+          "token": localStorage.getItem("username")
+        })
+      }
+      return this.http.delete(EMPTY_CART_URL, headers);
+    }
 }

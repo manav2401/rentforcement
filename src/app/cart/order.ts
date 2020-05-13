@@ -3,11 +3,11 @@ export class order {
     id: number;
     userid: number;
     prodid: number;
-    startDate: String;
-    endDate: String;
+    startDate: string;
+    endDate: string;
     amount: number;
-    userAddress: String;
-    orderStatus: String;
+    userAddress: string;
+    orderStatus: string;
 
     // constructor (private id1,
     //     private userid1, 

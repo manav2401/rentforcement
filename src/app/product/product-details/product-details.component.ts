@@ -12,27 +12,42 @@ import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 })
 export class ProductDetailsComponent implements OnInit {
 
+  // Product
   product?: Product;
   testProduct: Product;
-  expiryMessage: string;
+  productEndDate: string;
+
+  // expiryMessage: string;
   availabilityMessage: string;
   test: string;
+
+  // Days for product is available
   daysAvailable: number = 0;
   currDate: Date = new Date();
   productDate: Date;
   available: boolean = true;
+
+  // session
+  session: number = 0;
 
   constructor(private route: Router, 
     private prodService: ProductService,
   ) {
       this.product = new Product();
       this.availabilityMessage = "";
-      this.expiryMessage = "";
+      // this.expiryMessage = "";
   }
 
   ngOnInit(): void {
     this.available = true;
     this.getProductDetails(this.getProductIdFromUrl());
+    
+    if (localStorage.getItem("username")) {
+      this.session = 1;
+    } else {
+      this.session = 0;
+    }
+
   }
 
   getProductIdFromUrl(): number{
@@ -44,25 +59,47 @@ export class ProductDetailsComponent implements OnInit {
 
   getProductDetails(prodId: number): void{
 
+    // fetching product details
     this.prodService.getProductDetails(prodId).subscribe(
-      data => this.setProduct(data),
+      data => this.fetchproductAvailability(data, prodId),
       error => console.log("Error in fetching product details!")
     ) 
+    // this.setProduct(tempData, tempData2);
+
   }
 
+  fetchproductAvailability(data, prodId: number) {
+    this.product = data;
+
+    // fetching product availability details
+    this.prodService.fetchProductAvailability(prodId).subscribe(
+      data => this.setProduct(data),
+      error => console.log("Error in fetching product availability details!")
+    )    
+  }
 
   setProduct(data){
-    this.product = data;
+
+    this.productEndDate = data;
+
+    // Check1
     this.productDate = new Date(this.product.doa);
     let d1: number = this.product.duration
     let d2: number = this.currDate.getTime() - this.productDate.getTime();
     d2 = Math.floor(d2 / (1000 * 3600 * 24));
-    // console.log("D1: " + d1 + "D2: " + d2);
+
+    // Check2
+    let endTime: number = new Date(this.productEndDate).getTime();
+    let currentTime: number = new Date().getTime();
+    
     if (d2 < 0) {
-      this.availabilityMessage = "This product currently not available for rent!";
+      this.availabilityMessage = "This product currently not available for rent! Please check again later!";
       this.available = false;
     } else if ((d1-d2)<=0){
       this.availabilityMessage = "This product is no longer available for rent!"
+      this.available = false;
+    } else if(currentTime < endTime) {
+      this.availabilityMessage = "This product is already on rent! Please check again later!";
       this.available = false;
     } else {
       let num: number = 0;

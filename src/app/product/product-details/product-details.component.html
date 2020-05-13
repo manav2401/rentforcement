@@ -9,7 +9,16 @@
     <p>Price: {{ product.price }}</p> 
     <p>{{availabilityMessage}}</p>
     <div class="checkAvailability" *ngIf="available==true">
-        <button (click)="addToCart($event)">Add to Cart!</button>
+        <div class="sessionCheck" *ngIf="session==1; else elseBlock">
+            <button (click)="addToCart($event)">Add to Cart!</button>
+        </div>
+
+        <ng-template #elseBlock>
+            <a routerLink="/login" routerLinkActive="active">
+                <button (click)="addToCart($event)">Add to Cart!</button>
+            </a>
+        </ng-template>
+
     </div>
     
 </div>

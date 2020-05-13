@@ -145,11 +145,13 @@ export class OrderComponent implements OnInit {
     // API Call for order of each product
     let count: number = 0;
     this.products.forEach(element => {
+
+      // API Call for order
       this.ord = new order();
       this.ord.id = 1;
       this.ord.userid = 1;
       this.ord.prodid = element.id;
-      console.log("PRODUCT ID " + this.ord.prodid);
+      // console.log("PRODUCT ID " + this.ord.prodid);
       this.ord.startDate = new Date().toDateString();
       this.ord.endDate = this.endDates[count].toDateString();
       this.ord.amount = this.productAmount[count];
@@ -159,11 +161,25 @@ export class OrderComponent implements OnInit {
         data => console.log("Order Placed product:" + count + ": " + data),
         error => console.log("Error in placing order for product: " + count + ": " + error)
       )
+
+      // API Call for Updating Availability
+      this.productService.updateProductAvailability(this.ord.prodid, this.ord.endDate).subscribe(
+        data => console.log("Product Availability Updated!"),
+        error => console.log("Error in updating product availability!" + error)
+      )
+
       count = count+1;
     });
     console.log("All the orders have been placed!");
-    // this.route.navigate(['dashboard'])
+    
+    // empty the user cart
+    this.orderService.emptyUserCart().subscribe(
+      data => console.log("User Cart Empty!"),
+      error => console.log("Error in emptying user cart!" + error)
+    )
 
+    // navigate to orders section
+    this.route.navigate(['orders'])
   }
 
 }

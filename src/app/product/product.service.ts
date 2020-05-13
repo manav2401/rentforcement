@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Product }from './product';
 import { Observable } from 'rxjs';
+import { UpperCasePipe } from '@angular/common';
+import { ProductAvailable } from './product-available';
 
 @Injectable({
   providedIn: 'root'
@@ -55,6 +57,32 @@ export class ProductService {
     }  
     console.log("About to fire post query on " + this.url_add);
     return this.http.post(this.url_add, product, headers);
+  }
+
+  addProductAvailabillity(str: String) : Observable<any> {
+    const ADD_PRODUCT_AVAILABILITY_URL: string = "http://localhost:8080/addAvailability";
+    const headers = {
+      headers : new HttpHeaders({
+        "token": localStorage.getItem("username")
+      })
+    } 
+    return this.http.post(ADD_PRODUCT_AVAILABILITY_URL, str, headers);
+  }
+
+  fetchProductAvailability(id: number) : Observable<any> {
+    const FETCH_PRODUCT_AVAILABILITY_URL: string = "http://localhost:8080/availability/" + id;
+    return this.http.get<String>(FETCH_PRODUCT_AVAILABILITY_URL);
+  }
+
+  updateProductAvailability(prodId: number, endDate: string) : Observable<any> {
+    const UPDATE_PRODUCT_AVAILABILITY_URL: string = "http://localhost:8080/updateAvailability";
+    const headers = {
+      headers : new HttpHeaders({
+        "token": localStorage.getItem("username")
+      })
+    } 
+    let pA = new ProductAvailable(prodId, endDate);
+    return this.http.put(UPDATE_PRODUCT_AVAILABILITY_URL, pA, headers);
   }
 
   uploadImages(files: Array<File>, productId: number): Observable<any>{

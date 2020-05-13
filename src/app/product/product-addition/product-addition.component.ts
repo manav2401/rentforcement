@@ -55,11 +55,19 @@ export class ProductAdditionComponent implements OnInit {
   // }
 
   uploadProductDetails(){
+
+    // Making APi Call to add product details
     this.productService.addProduct(this.product).subscribe(
       data => console.log("Product Sent!"),
       error => console.log("Error in sending product!")
     )
     this.router.navigate(['dashboard']);
+
+    // Making API Call to add product availability
+    this.productService.addProductAvailabillity(this.product.doa).subscribe(
+      data => console.log("Product Availability Sent!"),
+      error => console.log("Error in sending product availability!")
+    )    
   }
 
   redirectToProductForm(): void{
