@@ -14,19 +14,25 @@ export class ImageHandlerService {
 
    }
 
-   uploadImage(file: File): Observable<any>{
-    const formData: FormData = new FormData();
-    formData.append('file', file);
+   //Takes Array of Files as input
+   uploadImage(files: Array<File>): Observable<any>{
+    //const formData: FormData = new FormData();
+    //formData.append('file', JSON.stringify(files));
     console.log("Into Service");
 
+    //Setting headers
+    //Hard-coding as of now
     const headers = {
       headers : new HttpHeaders({
         "productId": String(10)
-      })
+      })  
     } 
-    
-    return this.http.post(this.uploadUrl, formData, headers);
+    //Post request to backend
+    return this.http.post(this.uploadUrl, files, headers);
    }
    
    
+
+   
+
 }

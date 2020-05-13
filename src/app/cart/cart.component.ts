@@ -3,6 +3,15 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ProductService } from '../product/product.service';
 import { Product } from '../product/product';
 
+export class CartElement {
+  name: string
+  price: number
+  constructor(private prdname: string, private prdprice: number) {
+    this.name = prdname;
+    this.price = prdprice;
+  }
+}
+
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -19,6 +28,10 @@ export class CartComponent implements OnInit {
   username: string;
   products: Product[];
   errorFlag: number;
+  prodLength: number = 0;
+  totalSum: number = 0;
+  cartEle: CartElement[];
+  columns: string[] = ['No', 'Product Name', 'Product Price'];
 
   ngOnInit(): void {
 
@@ -41,6 +54,7 @@ export class CartComponent implements OnInit {
   }
 
   fetchProductsInCart() {
+    this.products = null;
     this.productService.fetchProductsInCart(this.username).subscribe(
       data => {
         this.storeData(data)
@@ -54,11 +68,27 @@ export class CartComponent implements OnInit {
   storeData(data) {
     this.errorFlag = 0;
     this.products = data;
+    this.prodLength = this.products.length;
+    this.totalSum = 0;
+    this.products.forEach(element => {
+      this.totalSum = this.totalSum + element.price;
+      this.cartEle.push(new CartElement(element.name, element.price));
+    });
   }
 
   errorFunc(error) {
     console.log("Error in fetching data!" + error)
     this.errorFlag = 1;
+  }
+
+  removeFromCart(event, product: Product) {
+    this.productService.removeFromCart(product.id).subscribe(
+      data => {
+        console.log("Data: " + data);
+        this.fetchProductsInCart();
+      },
+      error => console.log("Error in deletion!" + error)
+    )
   }
 
   backToHome(event) {

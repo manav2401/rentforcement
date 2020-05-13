@@ -4,12 +4,19 @@
     <p>Error in fetching products!</p> 
 </div>
 
-<div *ngFor="let product of products">
-    <nav>
-        {{ product.name }}
-    </nav>
+<div class="Message" *ngIf="prodLength==0; else elseBlock">
+    <p>Your Cart is Empty!</p>
 </div>
+<ng-template #elseBlock>
+    <div *ngFor="let product of products">
+        {{ product.name }} &nbsp;&nbsp; 
+        {{ product.price }} &nbsp;&nbsp; 
+        <button (click)="removeFromCart($event, product)">Remove from cart</button>
+        <br><br>
+    </div>
+    <h3>Cart Total: {{ totalSum | currency:'INR' }}</h3>
+</ng-template>
 
-<!-- ngfor here -->
 <button (click)="backToHome($event)">Back to Home</button>
 <button (click)="checkout($event)">Proceed to Checkout</button>
+

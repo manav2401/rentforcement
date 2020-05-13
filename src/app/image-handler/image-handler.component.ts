@@ -8,33 +8,32 @@ import { ImageHandlerService } from './image-handler.service';
 })
 export class ImageHandlerComponent implements OnInit {
 
-  @Output() fileUploadEvent = new EventEmitter<File>();
+  @Output() fileUploadEvent = new EventEmitter<Array<File>>();
+
+  images: FileList;
+  files: Array<File>;
 
   message: string;
-  constructor(private imgService: ImageHandlerService) { }
+  constructor(private imgService: ImageHandlerService) {
+    
+    this.files = new Array<File>();
+   }
 
   ngOnInit(): void {
 
   }
 
-  // onPicked( input: HTMLInputElement ){
-  //   console.log("File Picked");
-  //   const file = input.files[0];
-  //   if(file){
-  //     this.fileUploadEvent.emit(file);
-
-  //   }
-  //   else{
-  //     console.log("File not collected");
-  //   }
-    
-  // }
-
-  onPicked( input: HTMLInputElement ){
+  addToList( input: HTMLInputElement ){
     console.log("File Picked");
-    const file = input.files[0];
-    if(file){
-      this.imgService.uploadImage(file).subscribe();
+    this.images = input.files;
+    let i: number;
+    for(i=0;i<this.images.length;i++){
+      this.files.push(this.images.item(i))
+    }
+    // this.files.push(file);
+    if(this.files.length > 0){
+      
+      //this.fileUploadEvent.emit(this.files);
 
     }
     else{
@@ -42,6 +41,37 @@ export class ImageHandlerComponent implements OnInit {
     }
     
   }
+
+  sendToParentForUpload(){
+
+    // if(this.files.length > 0){
+    //   this.imgService.uploadImage(this.files).subscribe();
+    // }
+
+    // if(this.files.length > 0){
+    //   console.log("sending to parent");
+      
+    //   this.fileUploadEvent.emit(this.files);
+
+    // }
+    // else{
+    //   console.log("Upload atleast one image");
+    // }
+    
+  }
+
+  // onPicked( input: HTMLInputElement ){
+  //   console.log("File Picked");
+  //   const file = input.files[0];
+  //   if(file){
+  //     this.imgService.uploadImage(file).subscribe();
+
+  //   }
+  //   else{
+  //     console.log("File not collected");
+  //   }
+    
+  // }
 
 
   

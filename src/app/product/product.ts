@@ -7,6 +7,7 @@ export class Product {
     doa: string;
     duration: number;
     available: boolean;
+    price: number;
 
     constructor(){
         

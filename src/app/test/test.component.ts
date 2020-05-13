@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { EventEmitter, Output } from '@angular/core';
 // import {MatDatepickerModule} from '@angular/material/datepicker';
 // import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 
@@ -9,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TestComponent implements OnInit {
 
+  startDate = Date.now();
+  minDate = new Date();
+  maxDate = new Date(2020, 11, 31);
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  dateInput(event) {
+    console.log(event.value)
   }
 
 }

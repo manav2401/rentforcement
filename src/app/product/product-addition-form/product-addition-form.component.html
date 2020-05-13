@@ -3,7 +3,8 @@
     <div>
         <p>Product Name</p>
         <input type="text" placeholder="Product name" formControlName="name" required>
-        <small *ngIf="productAdditionForm.get('name').errors?.error">Character limit exceeded</small>
+        <!-- <small *ngIf="productAdditionForm.get('name').errors?.error">Character limit exceeded</small> -->
+        <small *ngIf="productAdditionForm.get('name').errors?.maxlength">Character limit exceeded</small>
     </div>
 
     <div>
@@ -13,19 +14,46 @@
     </div>
 
     <div>
-        <p>Deescription</p>
-        <input type="text" placeholder="Deescription" formControlName="desc" required>
+        <p>Description</p>
+        <input type="text" placeholder="Description" formControlName="desc" required>
+        <small *ngIf="productAdditionForm.get('desc').errors?.maxlength">Character limit exceeded</small>
     </div>
 
-    <div>
+    <!-- <div>
         <p>Category</p>
         <input type="text" placeholder="Category" formControlName="category" required>
+    </div> -->
+    <br>
+    <div>
+        <p>Category</p>
+        <select class="custom-select" (change)="onChange($event)" formControlName="category">
+            <option value="">Category</option>
+            <option *ngFor="let cat of category" >{{cat}}</option>
+        </select>
     </div>
+
+    <!-- <div>
+        <p>Date of Availability</p>
+        <input type="datetime-local" placeholder="Date of Availability" formControlName="doa" required>
+    </div> -->
 
     <div>
         <p>Date of Availability</p>
-        <input type="text" placeholder="Date of Availability" formControlName="doa" required>
+        <mat-form-field>
+            <mat-label>Choose a date</mat-label>
+            <input 
+            matInput 
+            [min]="minDate" 
+            [max]="maxDate" 
+            [matDatepicker]="picker"
+            (dateInput)="dateInput($event)"
+            formControlName="doa"
+            required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker [startAt]="startDate"></mat-datepicker>
+        </mat-form-field>
     </div>
+        
 
     <div>
         <p>Duration</p>
@@ -37,6 +65,7 @@
         <p>Price</p>
         <input type="text" placeholder="Price" formControlName="price" required>
         <small *ngIf="productAdditionForm.get('price').errors?.error">Should be numeric</small>
+        <!-- <small *ngIf="productAdditionForm.get('price').errors?.required">required</small> -->
     </div>
 
 

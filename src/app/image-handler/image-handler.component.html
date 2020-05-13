@@ -4,14 +4,19 @@
     <label for="picked">Choose file to upload</label>
     <div>
       <input type="file" id="picked" #picked
-        (click)="message=''">
+        (click)="message=''" multiple>
     </div>
-    <button (click) = "onPicked(picked)">Upload</button>
+    <button (click) = "addToList(picked)">Upload</button>
   </div>
   <p *ngIf="message">{{message}}</p>
 </form>
 
+<div *ngFor = "let file of files">
+  {{file.name}} 
+</div>
 
+<br>
+<button (click) = "sendToParentForUpload()">Confirm</button>
 
 
 <!-- 

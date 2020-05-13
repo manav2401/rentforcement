@@ -15,15 +15,11 @@ import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 export class ProductDetailsComponent implements OnInit {
 
   product?: Product;
-
   testProduct: Product;
-
   expiryMessage: string;
-
   availabilityMessage: string;
-
   test: string;
-
+  dateOfAvailibility: Date;
 
   constructor(private route: Router, 
     private prodService: ProductService,
@@ -42,8 +38,6 @@ export class ProductDetailsComponent implements OnInit {
   ngOnInit(): void {
     console.log("Initialized ng function");
     this.getProductDetails(this.getProductIdFromUrl());
-    
-    
   }
 
   getProductIdFromUrl(): number{
@@ -51,8 +45,6 @@ export class ProductDetailsComponent implements OnInit {
     let arr = curl.split("/",5);
     let prodId = Number(arr[3])
     return prodId;
-
-
   }
 
   getProductDetails(prodId: number): void{
@@ -84,6 +76,7 @@ export class ProductDetailsComponent implements OnInit {
 
   setProduct(data){
     this.product = data;
+    this.dateOfAvailibility = new Date(this.product.doa);
     console.log("Data is " + this.product.id);
     this.checkProductAvailability();
     this.checkProductExpiry();
@@ -109,31 +102,31 @@ export class ProductDetailsComponent implements OnInit {
   
 
   checkProductExpiry(): boolean{
-    let doa: string = this.product.doa;
-    let cDate = this.getCurrentDate();
-    console.log("Checking for product expiry " + this.product.doa);
-    let pDate = this.getProductDate(doa);
+    // let doa: Date = this.product.doa;
+    // let cDate = this.getCurrentDate();
+    // console.log("Checking for product expiry " + this.product.doa);
+    // let pDate = this.getProductDate(doa);
 
-    let temp: boolean = false;
+    // let temp: boolean = false;
 
-    if(pDate[2] > cDate[2]){
-      temp = true;
-    }
-    else if(pDate[1] > cDate[1]){
-      temp = true;
-    }
-    else if(pDate[0] > cDate[0]){
-      temp = true;
-    }
-    if(temp){
-      this.expiryMessage = "Product Renting period has Expired!!!";
-      this.product.available = false;
-    }
-    else{
-      this.expiryMessage = "";
-    }
-    return temp;
-    
+    // if(pDate[2] > cDate[2]){
+    //   temp = true;
+    // }
+    // else if(pDate[1] > cDate[1]){
+    //   temp = true;
+    // }
+    // else if(pDate[0] > cDate[0]){
+    //   temp = true;
+    // }
+    // if(temp){
+    //   this.expiryMessage = "Product Renting period has Expired!!!";
+    //   this.product.available = false;
+    // }
+    // else{
+    //   this.expiryMessage = "";
+    // }
+    // return temp;
+    return false;
 
   }
   checkProductAvailability(): void{
@@ -158,7 +151,6 @@ export class ProductDetailsComponent implements OnInit {
     }
 
   } 
-
   
 }
 

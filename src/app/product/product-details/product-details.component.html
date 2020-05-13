@@ -3,8 +3,9 @@
     <p>Description: {{ product.desc }}</p>
     <p>Age(In Months): {{ product.age }}</p>
     <p>Category: {{ product.category }}</p>
-    <p>Date of availability: {{ product.doa }}</p>
+    <p>Date of availability: {{ product.doa |  date:'dd/MM/yyyy'}}</p>
     <p>Duration: {{ product.duration }}</p>
+    <p>Price: {{ product.price }}</p> 
     <button (click)="addToCart($event)">Add to Cart!</button>
 </div>
 Message:

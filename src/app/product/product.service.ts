@@ -33,16 +33,12 @@ export class ProductService {
 
 
 
-  addNewProduct(file: File, product: Product): void{
+  addNewProduct(files: Array<File>, product: Product): void{
 
-    this.addProduct(product).subscribe(
-      data => console.log("Product added: " + data),
-      error => console.log("Error: " + error)
-    )
-    // this.addProduct(product).subscribe(data => { 
-    //   this.uploadImage(file, data).subscribe(data => {
-    //     this.displayImageUploadDataInConsole(data);
-    //   } )});
+    this.addProduct(product).subscribe(data => { 
+      this.uploadImages(files, data).subscribe(data => {
+        this.displayImageUploadDataInConsole(data);
+      } )});
 
   }
 
@@ -61,11 +57,11 @@ export class ProductService {
     return this.http.post(this.url_add, product, headers);
   }
 
-  uploadImage(file: File, productId: number): Observable<any>{
+  uploadImages(files: Array<File>, productId: number): Observable<any>{
 
     this.url_upload = "http://localhost:8080/image/upload";
     const formData: FormData = new FormData();
-    formData.append('file', file);
+    formData.append('file', JSON.stringify(files));
     console.log("Into Image Service");
 
     const headers = {
@@ -87,12 +83,23 @@ export class ProductService {
    }
 
    fetchProductsInCart(username: String) : Observable<any> {
-     const FETCH_PRODUCTS_IN_CART_URL: string = "http://localhost:8080/displayProductsInCart/" + username;
-     /*const headers = {
+     const FETCH_PRODUCTS_IN_CART_URL: string = "http://localhost:8080/displayProductsInCart";
+     const headers = {
        headers: new HttpHeaders({
          "token": localStorage.getItem("username")
        })
-     }*/
-     return this.http.get<Product[]>(FETCH_PRODUCTS_IN_CART_URL);
+     }
+     return this.http.get<Product[]>(FETCH_PRODUCTS_IN_CART_URL, headers);
    }
+
+   removeFromCart(productId: number) : Observable<any> {
+     const REMOVE_FROM_CART_URL: string = "http://localhost:8080/removeFromCart";
+     const headers = {
+      headers: new HttpHeaders({
+        "token": localStorage.getItem("username")
+      })
+    }
+    return this.http.post(REMOVE_FROM_CART_URL, productId, headers);
+   }
+
 }

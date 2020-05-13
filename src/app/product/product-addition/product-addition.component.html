@@ -7,8 +7,12 @@
     <!-- <app-image-handler *ngSwitchCase= "2"  (file) = "getImageFile($event)" ></app-image-handler> -->
 </container-element>
 
-
+<br>
 <button (click) = "uploadProductDetails()">Commit</button>
+
+
+<br><br>
+<button [disabled] = "selector == 2 ? false : true"  (click) = "redirectToProductForm()">Back</button>
 
 
 
