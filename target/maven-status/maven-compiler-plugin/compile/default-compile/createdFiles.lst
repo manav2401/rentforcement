@@ -1,5 +1,7 @@
 com/rental/user/cart/CartController.class
+com/rental/user/order/OrderController.class
 com/rental/product/visual/ProductVisual.class
+com/rental/user/order/Order.class
 com/rental/product/visual/ProductVisualService.class
 com/rental/product/available/ProductAvailable.class
 com/rental/product/ProductService.class
@@ -11,11 +13,13 @@ com/rental/product/available/ProductAvailableRepository.class
 com/rental/product/ProductRepository.class
 com/rental/user/UserService.class
 com/rental/user/cart/CartRepository.class
+com/rental/user/order/OrderRepository.class
 com/rental/RentEntry.class
 com/rental/user/cart/Cart.class
 com/rental/product/visual/ProductVisualRepository.class
 com/rental/user/cart/CartService.class
 com/rental/product/Product.class
+com/rental/user/order/OrderService.class
 com/rental/user/User.class
 com/rental/user/content/UserContent.class
 com/rental/user/UserRepository.class

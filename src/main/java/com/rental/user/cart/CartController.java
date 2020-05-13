@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.rental.user.User;
 import com.rental.user.UserService;
+import com.rental.handler.CustomException;
 import com.rental.product.Product;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 @Controller
 @CrossOrigin(origins = "*")
 public class CartController {
@@ -27,15 +27,16 @@ public class CartController {
     @Autowired
     private UserService userServ;
 
-    @Autowired 
+    @Autowired
     CartService cartService;
 
     @RequestMapping(method = RequestMethod.POST, value = "/addToCart")
     @ResponseBody
-    public ResponseEntity<Boolean> addProductToCart(@RequestBody int productId, @RequestHeader(name = "token") String username) {
-        System.out.println("Username: " + username);
+    public ResponseEntity<Boolean> addProductToCart(@RequestBody int productId,
+            @RequestHeader(name = "token") String username) {
+        // System.out.println("Username: " + username);
         Boolean userExist = cartService.checkIfUserExists(username);
-        if (userExist==true) {
+        if (userExist == true) {
             int userId = cartService.getUserIdFromUsername(username);
             Boolean result = cartService.addProductToCart(userId, productId);
             return new ResponseEntity<Boolean>(result, HttpStatus.OK);
@@ -44,27 +45,30 @@ public class CartController {
         }
     }
 
-    /*
-    @RequestMapping(value="/displayProductsInCart", method=RequestMethod.GET)
-    public ResponseEntity<ArrayList<Product>> requestMethodName(@RequestHeader(name = "token") String username) {
-        System.out.println("Username: " + username);
+    @RequestMapping(value = "/displayProductsInCart", method = RequestMethod.GET)
+    public ResponseEntity<ArrayList<Product>> requestMethodName(@RequestHeader(name = "token") String username)
+            throws CustomException {
         Boolean userExist = cartService.checkIfUserExists(username);
         ArrayList<Product> products = new ArrayList<Product>();
         if (userExist==true) {
             int userId = cartService.getUserIdFromUsername(username);            
             products = cartService.fetchCartProducts(userId);
-        }  
+        } 
         return new ResponseEntity<ArrayList<Product>>(products, HttpStatus.OK);
-    }*/
+    }
 
-    @RequestMapping(value="/displayProductsInCart/{username}", method=RequestMethod.GET)
-    public ResponseEntity<ArrayList<Product>> fetchProductsForCart(@PathVariable String username) {
+    @RequestMapping(method = RequestMethod.POST, value = "/removeFromCart")
+    @ResponseBody
+    public ResponseEntity<Boolean> removeFromCart(@RequestBody int productId, @RequestHeader(name = "token") String username) {
         System.out.println("Username: " + username);
-        // Boolean userExist = cartService.checkIfUserExists(username);
-        ArrayList<Product> products = new ArrayList<Product>();
-        int userId = cartService.getUserIdFromUsername(username);            
-        products = cartService.fetchCartProducts(userId);
-        return new ResponseEntity<ArrayList<Product>>(products, HttpStatus.OK);
+        Boolean userExist = cartService.checkIfUserExists(username);
+        if (userExist==true) {
+            int userId = cartService.getUserIdFromUsername(username);
+            Boolean result = cartService.removeProductFromCart(userId, productId);
+            return new ResponseEntity<Boolean>(result, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<Boolean>(userExist, HttpStatus.OK);
+        }
     }
 
 }
