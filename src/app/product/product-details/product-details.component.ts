@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Product } from '../product';
 import { Router } from '@angular/router';
 import { ProductService } from '../product.service';
 import { formatDate } from '@angular/common';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
+import { ProductVisual } from '../productVisual';
 
 @Component({
   selector: 'app-product-details',
@@ -12,12 +13,14 @@ import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 })
 export class ProductDetailsComponent implements OnInit {
 
+  @Input() id: number;
+
   // Product
   product?: Product;
   testProduct: Product;
+  productImage: ProductVisual;
   productEndDate: string;
 
-  // expiryMessage: string;
   availabilityMessage: string;
   test: string;
 
@@ -35,12 +38,12 @@ export class ProductDetailsComponent implements OnInit {
   ) {
       this.product = new Product();
       this.availabilityMessage = "";
-      // this.expiryMessage = "";
   }
 
   ngOnInit(): void {
+
     this.available = true;
-    this.getProductDetails(this.getProductIdFromUrl());
+    this.getProductDetailsWithImage(this.id);
     
     if (localStorage.getItem("username")) {
       this.session = 1;
@@ -50,17 +53,11 @@ export class ProductDetailsComponent implements OnInit {
 
   }
 
-  getProductIdFromUrl(): number{
-    let curl = this.route.url;
-    let arr = curl.split("/",5);
-    let prodId = Number(arr[3])
-    return prodId;
-  }
 
-  getProductDetails(prodId: number): void{
+  getProductDetailsWithImage(prodId: number): void{
 
     // fetching product details
-    this.prodService.getProductDetails(prodId).subscribe(
+    this.prodService.getProductDetailsWithImage(prodId).subscribe(
       data => this.fetchproductAvailability(data, prodId),
       error => console.log("Error in fetching product details!")
     ) 
@@ -68,8 +65,9 @@ export class ProductDetailsComponent implements OnInit {
 
   }
 
-  fetchproductAvailability(data, prodId: number) {
-    this.product = data;
+  fetchproductAvailability(data: ProductVisual, prodId: number) {
+    this.productImage = data;
+    this.product = this.productImage.product;
 
     // fetching product availability details
     this.prodService.fetchProductAvailability(prodId).subscribe(
@@ -109,6 +107,12 @@ export class ProductDetailsComponent implements OnInit {
     }
   }
 
+  goToProductUpdation(): void{
+    //this.prodService.product = this.product;
+    this.route.navigate(['/dashboard/updateProduct', this.id]);
+  }
+
+
   addToCart(event) {
 
     console.log("Adding to cart!")
@@ -128,3 +132,12 @@ export class ProductDetailsComponent implements OnInit {
   
 }
 
+
+/*
+  getProductIdFromUrl(): number{
+    let curl = this.route.url;
+    let arr = curl.split("/",5);
+    let prodId = Number(arr[3])
+    return prodId;
+  }
+*/

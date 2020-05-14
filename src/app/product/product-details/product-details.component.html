@@ -1,34 +1,30 @@
 <div *ngIf="product">
-   <h3>Name: {{ product.name }}</h3>
-    <p>Description: {{ product.desc }}</p>
-    <p>Age(In Months): {{ product.age }}</p>
-    <p>Category: {{ product.category }}</p>
-    <!-- <p>Date of availability: {{ product.doa |  date:'dd/MM/yyyy'}}</p> -->
-    <!-- <p>Duration: {{ product.duration }}</p> -->
-    <!-- <p>Product Available for next {{daysAvailable}} days!</p> -->
-    <p>Price: {{ product.price }}</p> 
-    <p>{{availabilityMessage}}</p>
-    <div class="checkAvailability" *ngIf="available==true">
-        <div class="sessionCheck" *ngIf="session==1; else elseBlock">
-            <button (click)="addToCart($event)">Add to Cart!</button>
-        </div>
-
-        <ng-template #elseBlock>
-            <a routerLink="/login" routerLinkActive="active">
-                <button (click)="addToCart($event)">Add to Cart!</button>
-            </a>
-        </ng-template>
-
-    </div>
-    
-</div>
-<!-- Message:
-{{ availabilityMessage }}
-<br>
-{{ expiryMessage }} -->
-
-<button></button>
-
-
-
-
+    <h3>Name: {{ product.name }}</h3>
+     <p>Description: {{ product.desc }}</p>
+     <p>Age(In Months): {{ product.age }}</p>
+     <p>Category: {{ product.category }}</p>
+     <!-- <p>Date of availability: {{ product.doa |  date:'dd/MM/yyyy'}}</p> -->
+     <!-- <p>Duration: {{ product.duration }}</p> -->
+     <!-- <p>Product Available for next {{daysAvailable}} days!</p> -->
+     <p>Price: {{ product.price }}</p> 
+     <p>{{availabilityMessage}}</p>
+ 
+     <br><br><br>
+     <img src = "http://localhost:8080/{{productImage?.image}}" height = 200>
+     
+     <div class="checkAvailability" *ngIf="available==true">
+         <div class="sessionCheck" *ngIf="session==1; else elseBlock">
+             <button (click)="addToCart($event)">Add to Cart!</button>
+         </div>
+ 
+         <ng-template #elseBlock>
+             <a routerLink="/login" routerLinkActive="active">
+                 <button (click)="addToCart($event)">Add to Cart!</button>
+             </a>
+         </ng-template>
+ 
+     </div>
+     
+ </div>
+ <button></button>
+ 

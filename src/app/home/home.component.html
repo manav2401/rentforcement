@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<title>Rentforcement Home</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<body id="myPage">
+
+<!-- Sidebar on click -->
+<nav class="w3-sidebar w3-bar-block w3-white w3-card w3-animate-left w3-xxlarge" style="display:none;z-index:2" id="mySidebar">
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-display-topright w3-text-teal">Close
+    <i class="fa fa-remove"></i>
+  </a>
+  
+</nav>
+
+<!-- Navbar -->
+<div class="w3-top">
+ <div class="w3-bar w3-theme-d2 w3-left-align">
+  <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-hover-white w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
+  <a href="#" class="w3-bar-item w3-button w3-teal"><i class="fa fa-home w3-margin-right"></i>RentForcement</a>
+  <!-- <a pageScroll href="#team" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Team</a> -->
+  <div class="dashboard_outer">
+  <a href="http://localhost:4200/dashboard/products/all" class="w3-bar-item w3-button w3-hide-small w3-hover-white" id="Dashboard">DashBoard</a>
+  <span class="tooltiptext">Click On Dashboard to view products </span>
+</div>
+  <a href="http://localhost:4200/assets/Term&Conditions.pdf" class="w3-bar-item w3-button w3-hide-small w3-hover-white" target="_blank">Terms & Conditions</a>
+  <!-- <a pageScroll href="#contact" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Contact</a> -->
+  <a href="http://localhost:4200/login" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Login</a>
+  
+ </div>
+
+  <!-- Navbar on small screens -->
+  <div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium">
+    <a href="#team" class="w3-bar-item w3-button">Team</a>
+    <a href="#work" class="w3-bar-item w3-button">Work</a>
+    <a href="http://localhost:4200/dashboard" class="w3-bar-item w3-button">DashBoard</a>
+    <a href="#contact" class="w3-bar-item w3-button">Contact</a>
+    <a href="#" class="w3-bar-item w3-button">Search</a>
+  </div>
+</div>
+
+<!-- Image Header -->
+<div class="w3-display-container w3-animate-opacity">
+  <img src="http://localhost:4200/assets/images/Idea.png" alt="boat" style="width:100%;min-height:350px;max-height:600px;">
+</div>
+
+
+<!-- Team Container -->
+<div id="team" class="w3-container w3-padding-64 w3-center" style="background-image: url('/assets/images/11857.jpg');">
+<h2>OUR TEAM</h2>
+  
+  <div class="w3-row"><br>
+  
+  <div class="w3-quarter">
+    <h3><b>Param Shah</b></h3>
+  </div>
+  
+  <div class="w3-quarter">
+    <h3><b>Rushil shah</b></h3>
+  </div>
+  
+  <div class="w3-quarter">
+    <h3><b>Manav Darji</b></h3>
+  </div>
+  
+  <div class="w3-quarter">
+    <h3><b>Charmil Gandhi</b></h3>
+  </div>
+  <div class="w3-quarter">
+    <h3><b>Jinesh Patel</b></h3>
+  </div>
+  <div class="w3-quarter">
+    <h3><b>Jeel Pujara</b></h3>
+  </div>
+  <div class="w3-quarter">
+    <h3><b>Hitesh Parmar</b></h3>
+  </div>
+  
+  
+  </div>
+  
+</div>
+
+
+<!-- Work Row -->
+<div class="w3-row-padding w3-padding-64 w3-theme-l1" id="work">
+
+
+<h2>Our Work</h2>
+<p>Rentforcement will offer item renting services in major cities of Gujarat . It is a platform connecting borrowers and lenders to conduct transactions . It plans to serve customers with a website using which they can rent or lend their things from anywhere and get trustworthy,cost effective deals .
+  By creating a one-of-a-kind Rentforcement plans to attract the young and efficient working in the Cities of gujarat, as well as PG students willing to grab great offers . 
+</p>
+
+
+
+
+</div>
+
+
+
+
+<!-- Contact Container -->
+<div class="w3-container w3-padding-64 w3-theme-l5" id="contact">
+  <div class="w3-row">
+    <div class="w3-col m5">
+    <div class="w3-padding-16"><span class="w3-xlarge w3-border-teal w3-bottombar">Contact Us</span></div>
+      <h3>Address</h3>
+      <p>Swing by for a cup of coffee, or whatever.</p>
+      <p><i class="fa fa-map-marker w3-text-teal w3-xlarge"></i> Ahmedabad ,India</p>
+      <p><i class="fa fa-phone w3-text-teal w3-xlarge"></i>  +91-7228984476</p>
+      <p><i class="fa fa-envelope-o w3-text-teal w3-xlarge"></i>  rentforcemetqueries@gmail.com</p>
+    </div>
+    <div class="w3-col m7">
+      <form class="w3-container w3-card-4 w3-padding-16 w3-white" action="/action_page.php" target="_blank">
+      <div class="w3-section">      
+        <label>Name</label>
+        <input class="w3-input" type="text" name="Name" required>
+      </div>
+      <div class="w3-section">      
+        <label>Email</label>
+        <input class="w3-input" type="text" name="Email" required>
+      </div>
+      <div class="w3-section">      
+        <label>Message</label>
+        <input class="w3-input" type="text" name="Message" required>
+      </div>  
+      <input class="w3-check" type="checkbox" checked name="Like">
+      <label>I Like it!</label>
+      <button type="submit" class="w3-button w3-right w3-theme">Send</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Image of location/map -->
+<img src="http://localhost:4200/assets/images/ahmedabad_image.jpg" class="w3-image w3-greyscale-min" style="width:100%;">
+
+<!-- Footer -->
+<footer class="w3-container w3-padding-32 w3-theme-d1 w3-center">
+  <h4>Follow Us</h4>
+  <a class="w3-button w3-large w3-teal" href="" title="Facebook"><i class="fa fa-facebook"></i></a>
+  <a class="w3-button w3-large w3-teal" href="" title="Twitter"><i class="fa fa-twitter"></i></a>
+  <a class="w3-button w3-large w3-teal" href="" title="Google +"><i class="fa fa-google-plus"></i></a>
+  <a class="w3-button w3-large w3-teal" href="https://www.instagram.com/rent_forcement/" title="Google +"><i class="fa fa-instagram"></i></a>
+  <a class="w3-button w3-large w3-teal w3-hide-small" href="javascript:void(0)" title="Linkedin"><i class="fa fa-linkedin"></i></a>
+
+</footer>
+
+<script>
+// Script for side navigation
+function w3_open() {
+  var x = document.getElementById("mySidebar");
+  x.style.width = "300px";
+  x.style.paddingTop = "10%";
+  x.style.display = "block";
+}
+
+// Close side navigation
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+}
+
+// Used to toggle the menu on smaller screens when clicking on the menu button
+function openNav() {
+  var x = document.getElementById("navDemo");
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else { 
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+</script>
+
+</body>
+</html>

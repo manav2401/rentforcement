@@ -1,0 +1,15 @@
+<h1>Image Uploading</h1><br>
+<h4>Upload atleast one image</h4>
+<br>
+<input type='file' #inputImage (change)="fetchImage($event)">
+
+
+
+<br><br>
+<button (click) = "goBackToProductAddition()">Back</button>
+<br><br>
+<button (click) = "executeUpload()">Confirm</button>
+
+
+
+<img  [src]="imageUrl" height="200"> 

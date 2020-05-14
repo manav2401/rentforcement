@@ -1,0 +1,60 @@
+
+<form [formGroup]="productUpdationForm" >
+    <div>
+        <p>Product Name</p>
+        <input type="text" placeholder="{{product.name}}" formControlName="name" required>
+        <!-- <small *ngIf="productUpdationForm.get('name').errors?.error">Character limit exceeded</small> -->
+        <small *ngIf="productUpdationForm.get('name').errors?.maxlength">Character limit exceeded</small>
+    </div>
+
+    <div>
+        <p>Age</p>
+        <input type="text" placeholder="{{product.age}}" formControlName="age" required>
+        <small *ngIf="productUpdationForm.get('age').errors?.error">Should be numeric</small>
+    </div>
+
+    <div>
+        <p>Description</p>
+        <input type="text" placeholder="{{product.desc}}" formControlName="desc" required>
+        <small *ngIf="productUpdationForm.get('desc').errors?.maxlength">Character limit exceeded</small>
+    </div>
+
+    <!-- <div>
+        <p>Category</p>
+        <input type="text" placeholder="Category" formControlName="category" required>
+    </div> -->
+    <br>
+    <div>
+        <p>Category</p>
+        <select class="custom-select" (change)="onChange($event)" formControlName="category">
+            <option value="{{product.category}}">Category</option>
+            <option *ngFor="let cat of category" >{{cat}}</option>
+        </select>
+    </div>
+
+    <!-- <div>
+        <p>Date of Availability</p>
+        <input type="text" placeholder="Date of Availability" formControlName="doa" required>
+    </div> -->
+
+    <div>
+        <p>Duration</p>
+        <input type="text" placeholder="{{product.duration}}" formControlName="duration" required>
+        <small *ngIf="productUpdationForm.get('duration').errors?.error">Should be numeric</small>
+        <small *ngIf="productUpdationForm.get('duration').errors?.durationError">
+            Cannot decrease the duration
+        </small>
+    </div>
+
+    <div>
+        <p>Price</p>
+        <input type="text" placeholder="{{product.price}}" formControlName="price" required>
+        <small *ngIf="productUpdationForm.get('price').errors?.error">Should be numeric</small>
+        <!-- <small *ngIf="productUpdationForm.get('price').errors?.required">required</small> -->
+    </div>
+
+
+
+    <br>
+    <button type="submit" [disabled]="!productUpdationForm.valid" (click)="updateProduct()">Update</button>
+</form>

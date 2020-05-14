@@ -10,13 +10,20 @@ import { DashboardService } from './dashboard.service';
 })
 export class DashboardComponent implements OnInit {
 
+  //Selecttion Attributes
   currentUrl: String;
   arr: String[];
   selector: number;
-  orders: order[];
+
+  // User Session
   session: number = 0;
+  user: boolean;
+
+  // Orders
+  orders: order[];
   ordersFetched: number = 0;
 
+  //Child Data Requirements attributes
   category: String;
   id: number;
 
@@ -59,12 +66,20 @@ export class DashboardComponent implements OnInit {
     else if(this.arr[2] == "product"){
       this.selector = 2;
       console.log("Dashboard Selector: " + this.selector);
+      this.id = Number(this.arr[3]);
     }
 
     else if(this.arr[2] == "addProduct"){
       this.selector = 3;
       console.log("Dashboard Selector: " + this.selector);
     }
+    else if(this.arr[2] == "updateProduct"){
+      //Update Product
+      this.selector = 4;
+      console.log("Dashboard Selector: " + this.selector);
+      this.id = Number(this.arr[3]);
+    }
+
   }
 
   // updateProductListByCategory(category: String){
@@ -94,7 +109,7 @@ export class DashboardComponent implements OnInit {
   }
 
   goToListByCategory( num : any ): void{
-    console.log("Function called");
+    // console.log("Function called");
     
     if(num == 1){
       //this.selector = 2;
@@ -119,12 +134,19 @@ export class DashboardComponent implements OnInit {
     else if(num == 6){
       
       this.route.navigate(['/dashboard/products/', 'Industrial']);
+    } 
+    else if (num == 7) {
+      this.route.navigate(['/dashboard/products/', 'Books']);
     }
-    else if(num == 7){
+    else if(num == 8){
       
       this.route.navigate(['/dashboard/products/', 'Other']);
     }
     
+  }
+
+  displayToggle(value: any){
+    console.log("Toogled: value = " + !this.user);
   }
 
 }

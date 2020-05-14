@@ -1,7 +1,14 @@
 <p>Products Page</p>
 
-<div *ngFor="let product of products">
+<div *ngFor="let packet of packets">
     <nav>
-        <a [routerLink]= "['/dashboard/product', product.id]" >{{ product.name }}</a>
+        <!-- <a [routerLink]= "['/dashboard/product', product.id]" >{{ product.name }}</a> -->
+        <a (click) = "goToDetailsPage(packet.product)">{{packet.product.name}}</a>
     </nav>
+    
+    <br>
+
+    <img src = "http://localhost:8080/{{packet.image}}" height = 200>
+     
+    
 </div>

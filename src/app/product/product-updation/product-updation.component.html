@@ -1,0 +1,8 @@
+<container-element [ngSwitch] = "selector">
+
+    <app-product-updation-form *ngSwitchCase = "1" 
+    (updateProductEvent) = "updateProduct($event)"></app-product-updation-form>
+
+</container-element>
+
+<img src = "http://localhost:8080/{{productImage?.image}}">

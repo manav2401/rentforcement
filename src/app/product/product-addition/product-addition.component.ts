@@ -3,6 +3,7 @@ import { Product } from '../product';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ProductService } from '../product.service';
 import { Router } from '@angular/router';
+import { ImageService } from '../image.service';
 
 @Component({
   selector: 'app-product-addition',
@@ -11,12 +12,15 @@ import { Router } from '@angular/router';
 })
 export class ProductAdditionComponent implements OnInit {
 
+  msg: string;
   product: Product;
-  imageFiles: Array<File>;
+  file: File;
 
   selector: number;
-  constructor( private productService : ProductService,private router: Router) { 
-    this.selector = 1;
+  constructor( private productService: ProductService,
+  private router: Router,
+  private imageService: ImageService
+  ) { 
   }
 
   ngOnInit(): void {
@@ -25,82 +29,57 @@ export class ProductAdditionComponent implements OnInit {
   }
 
   //Product-addition-form event collector
-  getProductDetails( productAdditionForm: FormGroup ){
-    console.log("Product Received by parent");
+  getProductDetailsFromChild( productAdditionForm: FormGroup ){
+    // console.log("Product Received by parent");
     this.product = productAdditionForm.value;
-    console.log("Parent " + this.product.age);
+    // console.log("Parent " + this.product.age);
     this.product.id=1;
     
-
-    //Opening Image Handler
-    // this.selector = 2;
-
-  }
-
-  //Image-handler event collector
-  getImageFiles( files: Array<File>){
-    this.imageFiles = files;
-    console.log("received by parent");
-    this.uploadProductDetails();
+    //Redirecting to Image Handler
+    this.selector = 2;
 
   }
 
-  //Finally calling API to backend
-  // uploadProductDetails(){
+  getImageFilesFromChild(file: File){
+    console.log("Image file received by parent");
+    this.file = file;
+  }
 
-  //   console.log("Ready to call API");
-  //   //this.productService.addNewProduct(this.files, this.product);
-  //   this.addProduct();
+  imageChildEventHandler(select: number){
+    this.selector = select;
+  }
 
-  // }
+  uploadProduct(temp: any){
+    if(this.product != null && this.file && temp == true){
+      this.productService.addProduct(this.product).subscribe(data => {
+        this.uploadImage(this.file, Number(data))
+      });
 
-  uploadProductDetails(){
+      // Making API Call to add product availability
+      this.productService.addProductAvailabillity(this.product.doa).subscribe(
+        data => console.log("Product Availability Sent!"),
+        error => console.log("Error in sending product availability!")
+      )
 
-    // Making APi Call to add product details
-    this.productService.addProduct(this.product).subscribe(
-      data => console.log("Product Sent!"),
-      error => console.log("Error in sending product!")
-    )
-    this.router.navigate(['dashboard']);
+      this.router.navigate(['dashboard/products/all']);
+    }
+    else{
+      console.log("Product Addition incomplete");
+    }
+  }
 
-    // Making API Call to add product availability
-    this.productService.addProductAvailabillity(this.product.doa).subscribe(
-      data => console.log("Product Availability Sent!"),
-      error => console.log("Error in sending product availability!")
-    )    
+  uploadImage(file: File, productId: number){
+
+    this.imageService.uploadLoadImage(file, productId).subscribe(data => { this.setDisplayMessage(data)});
+
   }
 
   redirectToProductForm(): void{
     this.selector = 1;
+  }  
+
+  setDisplayMessage(data: any){
+    window.alert(data);
   }
   
-  
 }
-
-
-
-
-// productAdditionForm = new FormGroup({
-//   name: new FormControl('', [ Validators.maxLength(20), Validators.required]),
-//   age: new FormControl('', [Validators.required]),
-//   desc: new FormControl('', [Validators.maxLength(50), Validators.required]), 
-//   category: new FormControl('', Validators.required),
-//   duration: new FormControl('', Validators.required),
-//   doa: new FormControl('', Validators.required),
-//   price: new FormControl('', Validators.required)
-// })
-
-
-// addProduct(): void{
-//   console.log(this.productAdditionForm.value);
-//   this.product = this.productAdditionForm.value;
-//   console.log(this.product.name);
-//   this.product.id=1;
-//   this.productService.addProduct(this.product).subscribe(
-//     data => {this.displayDataInConsole(data)});
-
-// }
-
-// displayDataInConsole(data: any){
-//   console.log(data);
-// }

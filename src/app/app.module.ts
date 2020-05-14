@@ -9,6 +9,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTableModule} from '@angular/material/table';
+import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -28,6 +29,10 @@ import { DemoMaterialModule } from './test/test-module';
 import { CartComponent } from './cart/cart.component';
 import { OrderComponent } from './cart/order/order.component';
 import { OrderDetailsComponent } from './dashboard/order-details/order-details.component';
+import { HomeComponent } from './home/home.component';
+import { ProductAdditionImageComponent } from './product/product-addition-image/product-addition-image.component';
+import { ProductUpdationComponent } from './product/product-updation/product-updation.component';
+import { ProductUpdationFormComponent } from './product/product-updation-form/product-updation-form.component';
 
 const routes: Routes = [
   {
@@ -40,12 +45,8 @@ const routes: Routes = [
   },
   {
     path: "",
-    redirectTo: "/dashboard",
+    redirectTo: "/home",
     pathMatch: "full"
-  },
-  {
-    path: "dashboard",
-    component: DashboardComponent
   },
   {
     path: "error",
@@ -65,7 +66,12 @@ const routes: Routes = [
     path: 'dashboard/addProduct', 
     component: DashboardComponent, 
     runGuardsAndResolvers: 'always'
-  },  
+  },
+  {
+    path: 'dashboard/updateProduct/:id',
+    component: DashboardComponent,
+    runGuardsAndResolvers: 'always'
+  },
   { 
     path: 'image', 
     component: ImageHandlerComponent 
@@ -85,6 +91,10 @@ const routes: Routes = [
   {
     path: 'orders', 
     component: OrderDetailsComponent
+  },
+  {
+    path: 'home',
+    component: HomeComponent
   }
 ]
 
@@ -105,7 +115,11 @@ const routes: Routes = [
     ImageHandlerComponent,
     CartComponent,
     OrderComponent,
-    OrderDetailsComponent
+    OrderDetailsComponent,
+    HomeComponent,
+    ProductAdditionImageComponent,
+    ProductUpdationComponent,
+    ProductUpdationFormComponent
   ],
   imports: [
     BrowserModule,
@@ -118,7 +132,10 @@ const routes: Routes = [
     MatNativeDateModule,
     DemoMaterialModule,
     MatTableModule,
-    RouterModule.forRoot(routes)
+    NgxPageScrollCoreModule,
+    RouterModule.forRoot(routes,
+      { onSameUrlNavigation: 'reload' }
+    )
   ],
   providers: [
     {
