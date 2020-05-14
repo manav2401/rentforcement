@@ -23,7 +23,6 @@ public class UserController {
 	@Autowired
 	private UserService userServ;
 	
-	
 	@RequestMapping(method = RequestMethod.POST, value = "/addUser")
 	@ResponseBody
 	public ResponseEntity<String> signUp(@RequestBody User user) throws CustomException, JsonProcessingException{
@@ -52,4 +51,20 @@ public class UserController {
 		list = userServ.getUserList();
 		return new ResponseEntity<ArrayList<User>>(list, HttpStatus.OK);
 	}
+
+	@RequestMapping(method = RequestMethod.POST, value="/signin")
+	public ResponseEntity<Boolean> signIn(@RequestBody UserLogin user) {
+		Boolean result;
+		if (userServ.checkIfUserExists(user.getCredential())) {
+			result = userServ.checkPasswordByUsername(user.getCredential(), user.getPassword());
+			// System.out.println("HERE1");
+		} else if (userServ.checkIdUserExistsByEmail(user.getCredential())) {
+			result = userServ.checkPasswordByEmail(user.getCredential(), user.getPassword());
+			// System.out.println("HERE2");
+		} else {
+			result = false;
+		}
+		return new ResponseEntity<Boolean>(result, HttpStatus.OK);
+	}
+
 }

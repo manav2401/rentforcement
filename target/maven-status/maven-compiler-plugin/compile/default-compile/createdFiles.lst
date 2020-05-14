@@ -10,6 +10,7 @@ com/rental/product/ProductService.class
 com/rental/user/content/UserContentId.class
 com/rental/product/ProductController.class
 com/rental/user/content/UserContentRepository.class
+com/rental/user/UserLogin.class
 com/rental/user/content/UserContentService.class
 com/rental/product/available/ProductAvailableRepository.class
 com/rental/product/ProductRepository.class

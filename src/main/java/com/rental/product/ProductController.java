@@ -124,26 +124,19 @@ public class ProductController {
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/products/{category}")
 	public ResponseEntity<ArrayList<Product>> getProductListByCategory(@PathVariable String category, @RequestHeader( name = "username") String username) throws CustomException{
-		//System.out.println("Rock on!!!");
 		ArrayList<Product> list = new ArrayList<Product>();
 		if(category.equals("all")) {
-			//System.out.println("All products found");
 			list = productServ.getPoductList();
 		}
 		else {	
 			list = productServ.getProductListByCategory(category);
 		}	
 		if(list.size()>0) {
-			//System.out.println("Products Found by category");
-			User user = userService.getUserByUsername(username);
-			list = userContentService.getListOfProductsForUser(user, list);
-//			System.out.println("List is not null");
-//			for(int i=0;i<list.size();i++)
-//			{
-//				System.out.println(list.get(i).getName());
-//			}
-			
-			return new ResponseEntity<ArrayList<Product>>(list, HttpStatus.OK);
+			if (!username.equals("@")) {
+				User user = userService.getUserByUsername(username);
+				list = userContentService.getListOfProductsForUser(user, list);			
+			}
+			return new ResponseEntity<ArrayList<Product>>(list, HttpStatus.OK);	
 		}
 		else {
 			
@@ -156,6 +149,7 @@ public class ProductController {
 	public ResponseEntity<ArrayList<ProductImage>> getProductListWithImagesByCategory(@PathVariable String category, @RequestHeader( name = "username") String username) throws CustomException{
 		ArrayList<Product> list = new ArrayList<Product>();
 		ArrayList<ProductImage> del = new ArrayList<ProductImage>();
+		int flag = 0;
 		if(category.equals("all")) {
 			//System.out.println("All products found");
 			list = productServ.getPoductList();
@@ -164,16 +158,19 @@ public class ProductController {
 			list = productServ.getProductListByCategory(category);
 		}	
 		if(list.size()>0) {
-			//System.out.println("Products Found by category");
-			User user = userService.getUserByUsername(username);
-			list = userContentService.getListOfProductsForUser(user, list);
-//			System.out.println("List is not null");
-//			for(int i=0;i<list.size();i++)
-//			{
-//				System.out.println(list.get(i).getName());
-//			}
-			del = productVisualService.sendPackets(list);
+			if (!username.equals("@")) {
+				System.out.println("USERNAME: "+ username);
+				User user = userService.getUserByUsername(username);
+				list = userContentService.getListOfProductsForUser(user, list);
+				del = productVisualService.sendPackets(list);	
+				flag++;
+			}
+
+			if (flag==0) {
+				del = productVisualService.sendPackets(list);
+			}
 			
+			System.out.println("LIST SIZE: " + del.size());
 			return new ResponseEntity<ArrayList<ProductImage>>(del, HttpStatus.OK);
 		}
 		else {

@@ -104,10 +104,12 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
 
-	
-	
+	@Override
+	public String toString() {
+		return "User [emailaddr=" + emailaddr + ", fname=" + fname + ", lname=" + lname + ", password=" + password
+				+ ", phone=" + phone + ", userid=" + userid + ", username=" + username + "]";
+	}
+
 
 }

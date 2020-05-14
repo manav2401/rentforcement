@@ -58,6 +58,11 @@ public class UserService {
 		return  list.get(0);
 	}
 
+	public User getUserByEmailAddress(String emailaddr) {
+		ArrayList<User> list = userRepo.findByUsername(emailaddr);
+		return list.get(0);
+	}
+
 	public boolean checkIfUserExists(String username) {
         ArrayList<User> list = userRepo.findByUsername(username);
         if (list.size() == 0) {
@@ -65,14 +70,42 @@ public class UserService {
         } else {
             return true;
         }
-    }
+	}
+	
+	public boolean checkIdUserExistsByEmail(String emailaddr) {
+		ArrayList<User> list = userRepo.findByEmailaddr(emailaddr);
+		if (list.size() == 0) {
+            return false;
+        } else {
+            return true;
+        }
+	}
 
     public int getUserIdFromUsername(String username) {
         // Assuming user already exits
 
         ArrayList<User> list = userRepo.findByUsername(username);
         return list.get(0).getUserid();
-    }
+	}
+	
+	public Boolean checkPasswordByUsername(String username, String password) {
+		User user = getUserByUsername(username);
+		if (user.getPassword().equals(password)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public Boolean checkPasswordByEmail(String emailaddr, String password) {
+		User user = getUserByEmailAddress(emailaddr);
+		if (user.getPassword().equals(password)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	
 	
 	
