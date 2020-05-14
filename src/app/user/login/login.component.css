@@ -32,10 +32,17 @@ body{
     font-family: sans-serif;
 }
 .animation-area{
-    background: linear-gradient(to left,#8942a8,#ba382f);
+    background: linear-gradient(to left,#183953,rgb(119, 63, 223));
+    /* back */
     /*width: 100%;*/
-    height: 120vh;
+    height: 100vh;
 }
+
+.LoginMessage{
+    font-size: large;
+    padding-left: 2cm;
+}
+
 .box-area{
     top: 0;
     left: 0;

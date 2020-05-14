@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ProductService } from '../product.service';
 import { Router } from '@angular/router';
 import { ImageService } from '../image.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-product-addition',
@@ -19,7 +20,8 @@ export class ProductAdditionComponent implements OnInit {
   selector: number;
   constructor( private productService: ProductService,
   private router: Router,
-  private imageService: ImageService
+  private imageService: ImageService,
+  private _snackBar: MatSnackBar
   ) { 
   }
 
@@ -60,7 +62,7 @@ export class ProductAdditionComponent implements OnInit {
         data => console.log("Product Availability Sent!"),
         error => console.log("Error in sending product availability!")
       )
-
+      
       this.router.navigate(['dashboard/products/all']);
     }
     else{
@@ -79,7 +81,13 @@ export class ProductAdditionComponent implements OnInit {
   }  
 
   setDisplayMessage(data: any){
-    window.alert(data);
+    // window.alert(data);
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
   }
   
 }

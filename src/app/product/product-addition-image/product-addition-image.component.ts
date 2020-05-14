@@ -1,6 +1,7 @@
 import { Component, OnInit, Output,EventEmitter, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { delay } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 
@@ -25,7 +26,10 @@ export class ProductAdditionImageComponent implements OnInit {
   urls = [];
 
 
-  constructor( private route: Router) { }
+  constructor(
+    private route: Router,
+    private _snackBar: MatSnackBar    
+  ) { }
 
   ngOnInit(): void {
     if(this.file){
@@ -33,6 +37,11 @@ export class ProductAdditionImageComponent implements OnInit {
     }
   }
 
+  openSnackBar() {
+    this._snackBar.open("Product Added", "Okay", {
+      duration: 2000,
+    });
+  }
 
   fetchImage(event: any) {
 

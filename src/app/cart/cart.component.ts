@@ -65,6 +65,10 @@ export class CartComponent implements OnInit {
         this.errorFunc(error)
       }
     )
+
+    let tempUrl: string = "/cart/" + localStorage.getItem("username");
+    this.route.navigate([tempUrl]);
+
   }
 
   storeData(data) {

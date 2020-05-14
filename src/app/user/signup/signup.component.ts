@@ -80,7 +80,7 @@ export class SignupComponent implements OnInit {
       console.log("AC");
       this.userService.addUser(usr).subscribe(
         data => {
-          this.storeToken(data);
+          this.storeToken(usr.username);
         },
         error => console.log("Error: ", error),
       )
@@ -89,13 +89,13 @@ export class SignupComponent implements OnInit {
   }
 
   storeToken(data) {
-    console.log("Data: " + data);
-    this.token = data.slice(6);
-    console.log("Token: " + this.token);
-    localStorage.setItem("username", this.token);
+    // console.log("Data: " + data);
+    // this.token = data.slice(6);
+    // console.log("Token: " + this.token);
+    localStorage.setItem("username", data);
     
     // redirect to dashboard
-    this.router.navigate(['home']);
+    this.router.navigate(['dashboard/products/all']);
 
   }
 

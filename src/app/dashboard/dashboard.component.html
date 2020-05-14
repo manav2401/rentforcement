@@ -20,15 +20,25 @@
 
 <div class = "rightbox">
     <a (click)="goToAddProduct()">Add</a><br>
-    <p>View Your Products</p>
-    <label class="switch">
-        <input type="checkbox" [(ngModel)] = "user" name="checkbox"  (click) = "displayToggle($event.target.value)">
-        <span class="slider round"></span>
-    </label>
     <br>
     
     <div class="ViewOrders">
         <a (click)="fetchOrders()">View Your Orders</a>
     </div>
+    <br><br>
+    <div class="Signin" *ngIf="session==0; else elseBlock">
+        <button routerLink="/login" routerLinkActive="active">Sign In</button>
+    </div>
+    <ng-template #elseBlock>
+        Hello @{{ currUser }}
+        <br><br>
+        <p>View Your Products</p>
+        <label class="switch">
+            <input type="checkbox" [(ngModel)] = "user" name="checkbox"  (click) = "displayToggle($event.target.value)">
+            <span class="slider round"></span>
+        </label>
+        <br><br>
+        <button (click)="closeSession($event)">Sign Out</button>
+    </ng-template>
 
 </div>

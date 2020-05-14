@@ -2,6 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { order } from '../cart/order';
 import { DashboardService } from './dashboard.service';
+import { ProductService } from '../product/product.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,6 +19,7 @@ export class DashboardComponent implements OnInit {
   // User Session
   session: number = 0;
   user: boolean;
+  currUser: string;
 
   // Orders
   orders: order[];
@@ -27,12 +29,17 @@ export class DashboardComponent implements OnInit {
   category: String;
   id: number;
 
+  // Toggle
+  toggle: String;
+
   navigationSubscription: any;
 
   constructor(private route: Router,
-    private dashboardService: DashboardService
+    private dashboardService: DashboardService,
+    private productService: ProductService
     ) {
-    this.selector = 0;
+    this.selector = 1;
+    
     this.navigationSubscription = this.route.events.subscribe((e: any) => {
       // If it is a NavigationEnd event re-initalise the component
       if (e instanceof NavigationEnd) {
@@ -46,11 +53,15 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
 
     this.ordersFetched = 0;
+    let currentUser: string = null;
+    currentUser = localStorage.getItem("username");
+    console.log("fetching username: " + currentUser);
 
-    if (localStorage.getItem("username")==null) {
+    if (currentUser==null) {
       this.session = 0;
     } else {
       this.session = 1;
+      this.currUser = currentUser;
     }
   }
 
@@ -62,6 +73,7 @@ export class DashboardComponent implements OnInit {
       this.selector = 1;
       console.log("DashBoard Selector: " + this.selector + " Catgory: " + this.arr[3]);
       this.category = this.arr[3];
+      this.toggle = this.arr[4];
     }
     else if(this.arr[2] == "product"){
       this.selector = 2;
@@ -147,6 +159,21 @@ export class DashboardComponent implements OnInit {
 
   displayToggle(value: any){
     console.log("Toogled: value = " + !this.user);
+    if (!this.user == true) {
+      localStorage.setItem("toggle", "1");
+      let temp: string = 'dashboard/products/' + this.category + "/u";
+      this.route.navigate([temp]);
+    } else {
+      this.route.navigate(["/dashboard/products/", this.category]);
+    }
+    
+  }
+
+  closeSession(event) {
+    localStorage.removeItem("username");
+    console.log("WHILE LOGOUT: " + localStorage.getItem("username"));
+    this.session = 0;
+    this.route.navigate(['/dashboard/products/all']);
   }
 
 }

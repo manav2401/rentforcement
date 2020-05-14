@@ -4,19 +4,24 @@ import {MatButtonModule} from '@angular/material/button';
 
 import { UserLogin } from '../UserLogin';
 import { UserService } from '../user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.main.css', './login.component.util.css']
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
 
   userLogin = new UserLogin();
   flag1 = 0;
   flag2 = 0;
+  loginFailed: number = 0;
 
-  constructor(private userService: UserService) { }
+  constructor(
+    private userService: UserService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.userLogin.credential = null;
@@ -37,7 +42,7 @@ export class LoginComponent implements OnInit {
     }
 
     if (this.flag1==0 && this.flag2==0) {
-      // console.log("Data Received: " + this.userLogin.credential + " and " + this.userLogin.password);
+      console.log("Data Received: " + this.userLogin.credential + " and " + this.userLogin.password);
       this.validateCredentials();
     }
 
@@ -45,9 +50,29 @@ export class LoginComponent implements OnInit {
 
   validateCredentials() {
     this.userService.sendLoginCredentials(this.userLogin).subscribe(
-      data => console.log("Data: ", data),
-      error => console.log("Error: ", error)
+      data => {
+        this.storeToken(this.userLogin.credential, data);
+      },
+      error => {
+        this.error(error);
+      }
     )
   }
+
+  error(err) {
+    console.log("Error in login: " + err);
+    this.loginFailed = 1;
+  }
+
+  storeToken(token, data: boolean) {
+    if (data==true) {
+      this.loginFailed = 0;
+      localStorage.setItem("username", token);
+      this.router.navigate(['dashboard/products/all']);      
+    } else {
+      this.loginFailed = 1;
+    }
+  }
+
 
 }

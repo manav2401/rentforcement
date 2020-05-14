@@ -1,7 +1,16 @@
-<link rel="stylesheet" type="text/css" href="signup.component.css">
-    
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Rentforcement</title>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="signup.component.css">
+</head>
+
+<body>
+<div class="afterBody">
 <div class="loginbox">
-    <h1 align="center">Renting made easy @RentForcement</h1>
+    <h1 align="center">SignUp @RentForcement</h1>
 
     <div class="f_left">
         First Name
@@ -87,6 +96,7 @@
             type="text" 
             name="email" 
             id="email" 
+            pattern="/^[a-zA-Z0-9.!#$%&'+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)$/"
             placeholder="Enter email address"
             [(ngModel)]="usr.emailaddr">
     </div>
@@ -141,16 +151,17 @@
         value="Sign Up"  
         (click)="saveUserDetails($event, usr)">
 
-</div>
+    <div class="SignUpMessage">
+        <a routerLink="/login" routerLinkActive="active">Already Have an Account? Login Here!</a>
+    </div>
 
-<!-- <div class="animation-area">
-    <ul class="box-area">
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-    </ul>
-</div> -->
+
+</div>
+<div class="animation-area">
+    
+</div>
+</div>
+</body>
+</html>
+
 <router-outlet></router-outlet>

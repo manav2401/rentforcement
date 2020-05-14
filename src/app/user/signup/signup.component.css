@@ -23,19 +23,56 @@
     src: url('/src/assets/fonts/montserrat/Montserrat-Medium.ttf'); 
 }
 
-body{
+.body{
     margin: 0;
     /*padding: 0;*/
-    /*background: url(pic5.jpg);*/
+    background: url('http://localhost:8080/images/bg-01.jpg');
+    /* background-color:green; */
     background-size: cover;
     /*background-position: center;*/
     font-family: sans-serif;
+   
+}
+
+.afterBody{
+    margin: 0;
+    /*padding: 0;*/
+    /* background: url('http://localhost:8080/images/bg-01.jpg'); */
+    /* background-color:green; */
+    background-size: cover;
+    /*background-position: center;*/
+    font-family: sans-serif;
+   
 }
 .animation-area{
-    background: linear-gradient(to left,#8942a8,#ba382f);
+    background: linear-gradient(to left,#183953,rgb(119, 63, 223));
+    /* back */
     /*width: 100%;*/
-    height: 120vh;
+    height: 100vh;
 }
+
+/* .SignUpMessage{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    -o-flex-direction: column;
+    flex-direction: column;
+    -ms-align-items: center;
+    align-items: center;
+}
+
+.p-t-50 {padding-top: 50px;} */
+
+.SignUpMessage {
+    font-size: large;
+    padding-left: 2cm;
+}
+
 .box-area{
     top: 0;
     left: 0;
@@ -49,53 +86,53 @@ body{
     width:25px;
     height: 25px;
     background: rgba(255,255,255,0.2);
-    animation: animate 20s linear infinite;
+    /* animation: animate 20s linear infinite; */
     bottom: -150px;
 }
 .box-area li:nth-child(1){
     left: 86%;
     width: 80px;
     height: 80px;
-    animation-delay: 0s;
+    /* animation-delay: 0s; */
 }
 
 .box-area li:nth-child(2){
     left: 12%;
     width: 30px;
     height: 30px;
-    animation-delay: 1.5s;
-    animation-duration: 10s;
+    /* animation-delay: 1.5s; */
+    /* animation-duration: 10s; */
 }
 
 .box-area li:nth-child(3){
     left: 70%;
     width: 100px;
     height: 100px;
-    animation-delay: 5.5s;
+    /* animation-delay: 5.5s; */
 }
 
 .box-area li:nth-child(4){
     left: 42%;
     width: 150px;
     height: 150px;
-    animation-delay: 0s;
-    animation-duration: 15s;
+    /* animation-delay: 0s; */
+    /* animation-duration: 15s; */
 }
 
 .box-area li:nth-child(5){
     left: 65%;
     width: 40px;
     height: 40px;
-    animation-delay: 0s;
+    /* animation-delay: 0s; */
 }
 
 .box-area li:nth-child(6){
     left: 15%;
     width: 110px;
     height: 110px;
-    animation-delay: 3.5s;
+    /* animation-delay: 3.5s; */
 }
-@keyframes animate{
+/* @keyframes animate{
     0%{
         transform: translateY(0) rotate(0deg);
         opacity: 1;
@@ -104,7 +141,7 @@ body{
         transform: translateY(-800px) rotate(360deg);
         opacity: 0;
     }
-}
+} */
 
 .loginbox{
     width:460px;

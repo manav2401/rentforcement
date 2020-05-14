@@ -6,106 +6,69 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="/src/assets/font-awesome-4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="/src/assets/fonts/iconic/css/material-design-iconic-font.min.css">
-	<link rel="stylesheet" type="text/css" href="login.component.util.css">
-	<link rel="stylesheet" type="text/css" href="login.component.main.css">
+	<!-- <link rel="stylesheet" type="text/css" href="login.component.util.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="login.component.main.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="login.component.css"> -->
 </head>
 <body>
-	<div class="limiter">
-		<div class="container-login100" style="background-image: url('http://localhost:8080/images/bg-01.jpg');">
-			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
-				<form class="login100-form validate-form">
-					<span class="login100-form-title p-b-49">
-						Login
-					</span>
+	<div class="loginbox">
+		<link rel="stylesheet" type="text/css" href="login.component.css">
+		<h1 align="center">Login @RentForcement</h1>
 
-					<div class="wrap-input100 m-b-23">
-						<span class="label-input100">Username or Email</span>
-						<input class="input100" type="text" name="username" placeholder="Type your username or email">
-						<!-- <span class="focus-input100"> -->
-							<!-- data-symbol="&#xf206;" -->
-							<mat-icon aria-hidden="false" aria-label="Example home icon">account_circle</mat-icon>
-						<!-- </span> -->
-					</div>
-
-					<div class="wrap-input100 validate-input" data-validate="Password is required">
-						<span class="label-input100">Password</span>
-						<input class="input100" type="password" name="pass" placeholder="Type your password">
-						<span class="focus-input100" data-symbol="&#xf190;"></span>
-					</div>
-					
-					<div class="text-right p-t-8 p-b-31">
-						<a href="#">
-							Forgot password?
-						</a>
-					</div>
-					
-					<div class="container-login100-form-btn">
-						<div class="wrap-login100-form-btn">
-							<div class="login100-form-bgbtn"></div>
-							<button class="login100-form-btn">
-								Login
-							</button>
-						</div>
-					</div>
-
-					<div class="flex-col-c p-t-50">
-						<a href="#" class="txt2">
-							Don't have an account? Create One here!
-						</a>
-					</div>
-				</form>
-			</div>
+		<div class="checkLoginFailed" *ngIf="loginFailed==1">
+			Invalid Credentials. Please Try Again!
 		</div>
-	</div>
+		<br>
 	
+		Username or email address
+		<div class="validate-message" *ngIf="flag1==1 || userLogin.credential==''">
+			<p>Please fill in this field!</p>
+		</div>
+		<div *ngIf="flag1==0 || userLogin.credential!=''">
+		</div>
+		<input 
+			type="text" 
+			name="username"
+			placeholder="Enter username or email address"
+			[(ngModel)]="userLogin.credential">
+		<br><br>
+	
+		Password
+		<div class="validate-message" *ngIf="flag2==1 || userLogin.password==''">
+			<p>Please fill in this field!</p>
+		</div>
+		<div *ngIf="flag2==0 || userLogin.password!=''">
+		</div>
+		<input 
+			type="password" 
+			name="password"
+			placeholder="Enter password"
+			[(ngModel)]="userLogin.password">	
+	
+	
+		<br>
+		
+		<input 
+			type="submit" 
+			name="login" 
+			value="Sign in"  
+			(click)="sendLoginCredentials($event, userLogin.credential, userLogin.password)">
+	
+		<!-- <p> <a href="#"> Forgot Password? </a></p> -->
+		<div class="LoginMessage">
+			<p><a routerLink="/signup" routerLinkActive="active">Don't have an Account? Sign Up Here!</a></p>
+		</div>
+		
+		<br>
 
-	<!-- <div id="dropDownSelect1"></div> -->
+	</div>
+
+	<div class="animation-area">
+    
+	</div>
+
 
 </body>
 </html>
 
-<!-- <div class="loginbox">
-	<link rel="stylesheet" type="text/css" href="login.component.css">
-	<h1 align="center">Renting made easy @RentForcement</h1>
-
-    Username or email address
-    <div class="validate-message" *ngIf="flag1==1 || userLogin.credential==''">
-        <p>Please fill in this field!</p>
-    </div>
-    <div *ngIf="flag1==0 || userLogin.credential!=''">
-    </div>
-	<input 
-		type="text" 
-		name="username"
-        placeholder="Enter username or email address"
-        [(ngModel)]="userLogin.credential">
-    <br><br>
-
-    Password
-    <div class="validate-message" *ngIf="flag2==1 || userLogin.password==''">
-        <p>Please fill in this field!</p>
-    </div>
-    <div *ngIf="flag2==0 || userLogin.password!=''">
-    </div>
-	<input 
-		type="password" 
-		name="password"
-        placeholder="Enter password"
-        [(ngModel)]="userLogin.password">	
-
-
-    <br>
-    
-    <input 
-        type="submit" 
-        name="login" 
-        value="Sign in"  
-        (click)="sendLoginCredentials($event, userLogin.credential, userLogin.password)">
-
-    <p> <a href="#"> Forgot Password? </a></p>
-    <p><a routerLink="/signup" routerLinkActive="active">Don't have an Account? Sign Up Here!</a></p>
-    <br>
-
-</div>
-
-<router-outlet></router-outlet> -->
+<router-outlet></router-outlet>

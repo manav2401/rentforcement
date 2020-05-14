@@ -21,35 +21,56 @@ export class ProductService {
   //Shared content between product list , product detail and product updation
   product: Product
 
+  // Username to send
+  usernameToggle: string;
 
   constructor( private http: HttpClient ) {  
   }
 
-  getProductList(category: String): Observable<any>{
+  getProductList(category: String, tmp: boolean): Observable<any>{
     this.url_list = "http://localhost:8080/products";
     this.url_list = this.url_list + "/" + category;
+    let currUserName: string;
+    if (tmp==true) {
+      currUserName = localStorage.getItem("username");
+    } else {
+      currUserName = "@";
+    }
 
+    // if (currUserName==null || localStorage.getItem("toggle")=="0") {
+    //   currUserName = "@";
+    // }
     const headers = {
       headers: new HttpHeaders({
-        "username": localStorage.getItem("username")
+        "username": currUserName
       })
     }
 
-    console.log("About to fetch Product List");
+    console.log("About to fetch Product List" + currUserName);
     return this.http.get<Product[]>(this.url_list,headers);
   }
 
-  getProductListWithImages(category: String): Observable<any>{
+  getProductListWithImages(category: String, tmp: boolean): Observable<any>{
     this.url_list = "http://localhost:8080/productImgs";
     this.url_list = this.url_list + "/" + category;
 
+    let currUserName: string;
+    if (tmp==true) {
+      currUserName = localStorage.getItem("username");
+    } else {
+      currUserName = "@";
+    }
+
+    // if (currUserName==null || localStorage.getItem("toggle")=="0") {
+    //   currUserName = "@";
+    // }
     const headers = {
       headers: new HttpHeaders({
-        "username": localStorage.getItem("username")
+        "username": currUserName
       })
     }
 
-    console.log("About to fetch Product List");
+    console.log("About to fetch Product List" + currUserName);
     return this.http.get<ProductVisual[]>(this.url_list,headers);
   }
 

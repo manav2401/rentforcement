@@ -17,6 +17,19 @@
             <br><br>
         </h4>
     </div>
+
+    <div class="homeLink" *ngIf="length!=0">
+        <h3>
+            <a routerLink="/dashboard/products/all" routerLinkActive="active">Go to Dashboard!</a>
+        </h3>
+    </div>
+
+    <div class="checkLength" *ngIf="length==0">
+        <h3>
+            You have no pending orders, take a look at products at Rent <a routerLink="/dashboard/products/all" routerLinkActive="active">Here</a>
+        </h3>        
+    </div>
+
 <!-- </div> -->
 <!-- <ng-template #elseBlock>
     <h3>No Orders till now!</h3>

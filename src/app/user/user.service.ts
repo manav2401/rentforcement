@@ -10,8 +10,8 @@ import { UserLogin } from './UserLogin';
 })
 export class UserService {
 
-    ADD_NEW_USER_URL:string = "http://localhost:4501/addUser";
-    SEND_LOGIN_CREDENTIALS = "http://localhost:4501/signin"
+    ADD_NEW_USER_URL:string = "http://localhost:8080/addUser";
+    SEND_LOGIN_CREDENTIALS = "http://localhost:8080/signin"
 
     constructor(private http: HttpClient) { }
 
@@ -20,7 +20,7 @@ export class UserService {
     }
 
     sendLoginCredentials(userLogin: UserLogin) : Observable<any> {
-      return this.http.post(this.SEND_LOGIN_CREDENTIALS, userLogin);
+        return this.http.post(this.SEND_LOGIN_CREDENTIALS, userLogin);
     }
 
 //   fetchEmployees() : Observable<any>{

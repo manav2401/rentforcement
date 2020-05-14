@@ -12,12 +12,15 @@ export class OrderDetailsComponent implements OnInit {
 
   session: number = 0;
   orders: order[];
+  length: number;
   constructor(
     private dashboardService: DashboardService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
+
+    this.length = 0;
 
     if (localStorage.getItem("username")==null) {
       this.session = 0;
@@ -33,6 +36,7 @@ export class OrderDetailsComponent implements OnInit {
     this.dashboardService.fetchOrders().subscribe(
       data => {
         this.orders = data
+        this.length = this.orders.length;
       },
       error => console.log("Error in fetching orders!" + error)
     )

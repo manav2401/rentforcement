@@ -58,6 +58,11 @@ const routes: Routes = [
     runGuardsAndResolvers: 'always'
   },
   { 
+    path: 'dashboard/products/:category/u', 
+    component: DashboardComponent, 
+    runGuardsAndResolvers: 'always'
+  },
+  { 
     path: 'dashboard/product/:id', 
     component: DashboardComponent, 
     runGuardsAndResolvers: 'always'
@@ -95,6 +100,10 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent
+  },
+  {
+    path: '**',
+    component: ErrorComponent
   }
 ]
 
