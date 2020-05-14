@@ -1,3 +1,4 @@
+com/rental/product/visual/ProductImage.class
 com/rental/user/cart/CartController.class
 com/rental/user/order/OrderController.class
 com/rental/product/visual/ProductVisual.class

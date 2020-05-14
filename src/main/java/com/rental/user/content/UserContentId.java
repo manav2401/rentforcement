@@ -52,6 +52,4 @@ public class UserContentId implements Serializable {
         return result;
     }
 	
-	
-
 }

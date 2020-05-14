@@ -12,6 +12,7 @@
 /home/manav/Manav/Projects/RentForcement/rentforcement-backend/src/main/java/com/rental/user/order/OrderService.java
 /home/manav/Manav/Projects/RentForcement/rentforcement-backend/src/main/java/com/rental/product/visual/ProductVisualRepository.java
 /home/manav/Manav/Projects/RentForcement/rentforcement-backend/src/main/java/com/rental/user/content/UserContentId.java
+/home/manav/Manav/Projects/RentForcement/rentforcement-backend/src/main/java/com/rental/product/visual/ProductImage.java
 /home/manav/Manav/Projects/RentForcement/rentforcement-backend/src/main/java/com/rental/RentEntry.java
 /home/manav/Manav/Projects/RentForcement/rentforcement-backend/src/main/java/com/rental/user/content/UserContentRepository.java
 /home/manav/Manav/Projects/RentForcement/rentforcement-backend/src/main/java/com/rental/user/User.java

@@ -2,7 +2,6 @@ package com.rental.product;
 
 import java.util.ArrayList;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,13 +11,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rental.handler.CustomException;
+import com.rental.product.visual.ProductImage;
 import com.rental.product.visual.ProductVisualService;
+import com.rental.user.User;
+import com.rental.user.UserService;
+import com.rental.user.content.UserContentService;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -27,7 +31,14 @@ public class ProductController {
 	@Autowired
 	private ProductService productServ;
 	
-	@Autowired ProductVisualService productVisualService;
+	@Autowired 
+	private ProductVisualService productVisualService;
+
+	@Autowired 
+	private UserService userService;
+	
+	@Autowired
+	private UserContentService userContentService;
 	
 	@RequestMapping(method = RequestMethod.POST, value="/addProduct")
 	public ResponseEntity<Integer> addProduct(@RequestBody Product product, @RequestHeader(name = "token") String username) throws JsonProcessingException{
@@ -80,9 +91,40 @@ public class ProductController {
 		
 		
 	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/productImg/{id}")
+	public ResponseEntity<ProductImage> getProductDetailsWithImages(@PathVariable int id) throws CustomException{
+		Product prod = productServ.getProductDetails(id);
+		ProductImage productImage = null;
+		if(prod != null) {
+			productImage = productVisualService.getProductDetailswithImage(prod);
+			return new ResponseEntity<ProductImage>(productImage, HttpStatus.OK);
+		}
+		else {
+			return new ResponseEntity<ProductImage>(productImage, HttpStatus.NO_CONTENT);
+		}
+		
+		
+	}
+
+	@RequestMapping( method = RequestMethod.PUT, value = "/updateProduct")
+	public ResponseEntity<String> updateProduct(@RequestBody Product product) throws JsonProcessingException{
+		ObjectMapper map = new ObjectMapper();
+		String jsonString;
+		if(productServ.updateProduct(product)) {
+			
+			jsonString = map.writeValueAsString("Product Updated");
+			return new ResponseEntity<String>(jsonString, HttpStatus.OK);
+		}
+		else {
+			jsonString = map.writeValueAsString("Product Could not be Updated");
+			return new ResponseEntity<String>(jsonString, HttpStatus.CONFLICT);
+		}
+	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/products/{category}")
-	public ResponseEntity<ArrayList<Product>> getProductListByCategory(@PathVariable String category){
+	public ResponseEntity<ArrayList<Product>> getProductListByCategory(@PathVariable String category, @RequestHeader( name = "username") String username) throws CustomException{
+		//System.out.println("Rock on!!!");
 		ArrayList<Product> list = new ArrayList<Product>();
 		if(category.equals("all")) {
 			//System.out.println("All products found");
@@ -93,6 +135,14 @@ public class ProductController {
 		}	
 		if(list.size()>0) {
 			//System.out.println("Products Found by category");
+			User user = userService.getUserByUsername(username);
+			list = userContentService.getListOfProductsForUser(user, list);
+//			System.out.println("List is not null");
+//			for(int i=0;i<list.size();i++)
+//			{
+//				System.out.println(list.get(i).getName());
+//			}
+			
 			return new ResponseEntity<ArrayList<Product>>(list, HttpStatus.OK);
 		}
 		else {
@@ -101,20 +151,74 @@ public class ProductController {
 		}
 		
 	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/productImgs/{category}")
+	public ResponseEntity<ArrayList<ProductImage>> getProductListWithImagesByCategory(@PathVariable String category, @RequestHeader( name = "username") String username) throws CustomException{
+		ArrayList<Product> list = new ArrayList<Product>();
+		ArrayList<ProductImage> del = new ArrayList<ProductImage>();
+		if(category.equals("all")) {
+			//System.out.println("All products found");
+			list = productServ.getPoductList();
+		}
+		else {	
+			list = productServ.getProductListByCategory(category);
+		}	
+		if(list.size()>0) {
+			//System.out.println("Products Found by category");
+			User user = userService.getUserByUsername(username);
+			list = userContentService.getListOfProductsForUser(user, list);
+//			System.out.println("List is not null");
+//			for(int i=0;i<list.size();i++)
+//			{
+//				System.out.println(list.get(i).getName());
+//			}
+			del = productVisualService.sendPackets(list);
+			
+			return new ResponseEntity<ArrayList<ProductImage>>(del, HttpStatus.OK);
+		}
+		else {
+			
+			return new ResponseEntity<ArrayList<ProductImage>>(del, HttpStatus.NO_CONTENT);
+		}
+		
+	}
+	
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/image/upload")
-	public ResponseEntity<String> uploadProductImage(@RequestBody MultipartFile[] files, @RequestHeader( name = "productId") String strProductId) throws JsonProcessingException{
+	public ResponseEntity<String> uploadProductImage(@RequestParam("file") MultipartFile file, @RequestHeader( name = "productId") String strProductId) throws JsonProcessingException{
 		
 		ObjectMapper map = new ObjectMapper();
 		//ArrayList<MultipartFile> files = map.readValue(jsonFiles, new TypeReference<ArrayList<MultipartFile>>() {});
 		//map.convertValue(map.readValue(jsonFiles, ArrayList.class), (TypeReference<ArrayList<MultipartFile>>) new TypeReference<ArrayList<MultipartFile>>());
-		System.out.println("Product Image upload called " + files.length);
+		System.out.println("Product Image upload called ") ;
 		int productId = Integer.valueOf(strProductId);
-		//productVisualService.filesUpload(files, productId);
+		productVisualService.fileUpload(file, productId);
 		String jsonString;
 		jsonString =  map.writeValueAsString("Product added");
 		return new ResponseEntity<String>(jsonString, HttpStatus.OK);
 		
 	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/image/:productId")
+	public ResponseEntity<String> getImageListForProductList(@PathVariable("productId") int productId){
+		
+			String image = productVisualService.getImageForProduct(productId);
+			return new ResponseEntity<String>(image, HttpStatus.OK);
+		
+		
+		
+		
+	}
+	
+	@RequestMapping( method = RequestMethod.GET, value = "/testing")
+	public ResponseEntity<ArrayList<ProductImage>> testing(){
+		
+		ArrayList<Product> list = new ArrayList<Product>();
+		ArrayList<ProductImage> del = new ArrayList<ProductImage>();
+		list = productServ.getPoductList();
+		del = productVisualService.sendPackets(list);
+		return new ResponseEntity<ArrayList<ProductImage>>(del, HttpStatus.OK);
+	}
+
 
 }

@@ -53,23 +53,3 @@ public class UserController {
 		return new ResponseEntity<ArrayList<User>>(list, HttpStatus.OK);
 	}
 }
-
-
-
-
-
-
-
-
-
-//@RequestMapping(method = RequestMethod.GET, value = "/signUp1")
-//public String display1() {
-//	System.out.println("Rushil Shah");
-//	return "signUp";
-//}
-//
-//@RequestMapping(method = RequestMethod.GET, value = "/signUp2")
-//public String display2() {
-//	System.out.println("Rushil Shah");
-//	return "loginSignUp";
-//}
