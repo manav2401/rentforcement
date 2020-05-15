@@ -29,18 +29,23 @@ public class UserController {
 		
 		ObjectMapper map = new ObjectMapper();
 		String jsonString;
-		System.out.println("Backend2");
-		
-		
-		if(userServ.addUser(user)) {
-			jsonString = map.writeValueAsString("User added");
-			return new ResponseEntity<String>(jsonString, HttpStatus.OK);	
+		System.out.println("Backend2");		
+
+		Boolean result = false;
+		result = userServ.addUser(user);
+		String str;
+		String jsonStr;
+
+		if (result==false) {
+			str = "Account Already exists!";
+			jsonStr = map.writeValueAsString(str);		
+			return new ResponseEntity<String>(jsonStr, HttpStatus.INTERNAL_SERVER_ERROR);
+		} else {
+			str = "Added";
+			jsonStr = map.writeValueAsString(str);
+			return new ResponseEntity<String>(jsonStr, HttpStatus.OK);	
 		}
-		else {
-			jsonString = map.writeValueAsString("Could not Add User");
-			return new ResponseEntity<String>(jsonString, HttpStatus.INTERNAL_SERVER_ERROR);
-		}	
-		
+
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/users")

@@ -149,32 +149,35 @@ public class ProductController {
 	public ResponseEntity<ArrayList<ProductImage>> getProductListWithImagesByCategory(@PathVariable String category, @RequestHeader( name = "username") String username) throws CustomException{
 		ArrayList<Product> list = new ArrayList<Product>();
 		ArrayList<ProductImage> del = new ArrayList<ProductImage>();
-		int flag = 0;
-		if(category.equals("all")) {
-			//System.out.println("All products found");
-			list = productServ.getPoductList();
-		}
-		else {	
-			list = productServ.getProductListByCategory(category);
-		}	
-		if(list.size()>0) {
-			if (!username.equals("@")) {
-				System.out.println("USERNAME: "+ username);
-				User user = userService.getUserByUsername(username);
-				list = userContentService.getListOfProductsForUser(user, list);
-				del = productVisualService.sendPackets(list);	
-				flag++;
+		if(username.equals("@")) {
+			if(category.equals("all")) {
+				//System.out.println("All products found");
+				list = productServ.getPoductList();
 			}
-
-			if (flag==0) {
-				del = productVisualService.sendPackets(list);
-			}
+			else {	
+				list = productServ.getProductListByCategory(category);
+			}	
 			
-			System.out.println("LIST SIZE: " + del.size());
+			del = productVisualService.sendPackets(list);
+		}
+		else {
+			if(category.equals("all")) {
+				//System.out.println("All products found");
+				list = productServ.getPoductList();
+			}
+			else {	
+				list = productServ.getProductListByCategory(category);
+			}	
+			User user = userService.getUserByUsername(username);
+			list = userContentService.getListOfProductsForUser(user, list);
+			del = productVisualService.sendPackets(list);
+			
+			
+		}
+		if(del.size()>0) {
 			return new ResponseEntity<ArrayList<ProductImage>>(del, HttpStatus.OK);
 		}
 		else {
-			
 			return new ResponseEntity<ArrayList<ProductImage>>(del, HttpStatus.NO_CONTENT);
 		}
 		

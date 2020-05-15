@@ -26,7 +26,29 @@ public class UserService {
 		return list;
 	}
 	
-	
+	/*
+	public String addUser(User user) throws CustomException {
+
+		if (this.checkIfEmailAddrExists(user)==false) {
+			System.out.println("HERE1");
+			return "Email";
+		}
+
+		if (this.checkIfPhoneNoExists(user)==false) {
+			System.out.println("HERE2");
+			return "Phone";
+		}
+
+		if (this.checkIfUserNameExists(user)==false) {
+			System.out.println("HERE3");
+			return "Username";
+		}
+
+		user.setUserid(this.getNewUserId());
+		userRepo.save(user);
+		return "Added";
+	}*/
+
 	public boolean addUser(User user) throws CustomException {
 		if(!this.checkIfEmailAddrExists(user) && !this.checkIfPhoneNoExists(user) && !this.checkIfUserNameExists(user)) {
 			user.setUserid(this.getNewUserId());
