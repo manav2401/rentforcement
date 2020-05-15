@@ -12,10 +12,10 @@
 </div>
 
 <container-element  class = "middlebox" [ngSwitch]="selector">
-    <app-product-list [category]="category" *ngSwitchCase="1"></app-product-list>
+    <app-product-list [category]="category" [toggle]="toggle" *ngSwitchCase="1"></app-product-list>
     <app-product-details [id]="id" *ngSwitchCase="2"></app-product-details>
     <app-product-addition *ngSwitchCase="3"></app-product-addition>
-    <!-- <app-product-updation [id]="id" *ngSwitchCase="4"></app-product-updation> -->
+    <app-product-updation [id]="id" *ngSwitchCase="4"></app-product-updation>
 </container-element>
 
 <div class = "rightbox">
@@ -25,6 +25,11 @@
     <div class="ViewOrders">
         <a (click)="fetchOrders()">View Your Orders</a>
     </div>
+
+    <div class="ViewCart">
+        <a (click)="fetchCart()">View your Cart</a>
+    </div>
+
     <br><br>
     <div class="Signin" *ngIf="session==0; else elseBlock">
         <button routerLink="/login" routerLinkActive="active">Sign In</button>
@@ -34,7 +39,7 @@
         <br><br>
         <p>View Your Products</p>
         <label class="switch">
-            <input type="checkbox" [(ngModel)] = "user" name="checkbox"  (click) = "displayToggle($event.target.value)">
+            <input type="checkbox" [(ngModel)] = "toggle" name="checkbox"  (click) = "displayToggle($event.target.value)">
             <span class="slider round"></span>
         </label>
         <br><br>

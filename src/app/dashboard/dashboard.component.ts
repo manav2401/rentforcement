@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit {
   id: number;
 
   // Toggle
-  toggle: String;
+  toggle: boolean;
 
   navigationSubscription: any;
 
@@ -73,7 +73,13 @@ export class DashboardComponent implements OnInit {
       this.selector = 1;
       console.log("DashBoard Selector: " + this.selector + " Catgory: " + this.arr[3]);
       this.category = this.arr[3];
-      this.toggle = this.arr[4];
+      if(this.arr[4] == "u"){
+        this.toggle = true;
+      }
+      else{
+        this.toggle = false;
+      }
+      this.selector = 1;
     }
     else if(this.arr[2] == "product"){
       this.selector = 2;
@@ -109,6 +115,15 @@ export class DashboardComponent implements OnInit {
       this.route.navigate(["/orders"]);
     }
 
+  }
+
+  fetchCart() {
+    if (this.session==0) {
+      this.route.navigate(['login']);
+    } else {
+      let temp: string = "/cart/" + localStorage.getItem("username");
+      this.route.navigate([temp]);
+    }
   }
 
 
@@ -157,16 +172,30 @@ export class DashboardComponent implements OnInit {
     
   }
 
-  displayToggle(value: any){
-    console.log("Toogled: value = " + !this.user);
-    if (!this.user == true) {
-      localStorage.setItem("toggle", "1");
-      let temp: string = 'dashboard/products/' + this.category + "/u";
-      this.route.navigate([temp]);
-    } else {
-      this.route.navigate(["/dashboard/products/", this.category]);
-    }
+  // displayToggle(value: any){
+  //   console.log("Toogled: value = " + !this.user);
+  //   if (!this.user == true) {
+  //     localStorage.setItem("toggle", "1");
+  //     let temp: string = 'dashboard/products/' + this.category + "/u";
+  //     this.route.navigate([temp]);
+  //   } else {
+  //     this.route.navigate(["/dashboard/products/", this.category]);
+  //   }
     
+  // }
+
+  displayToggle(value: any){
+    console.log("Toogled: value = " + !this.toggle);
+
+    let url: string;
+    if(!this.toggle){
+      url = "/dashboard/products/" + this.category + "/u";
+      this.route.navigate([url]);
+    }
+    else{
+      url = "/dashboard/products/" + this.category;
+      this.route.navigate([url]);
+    }
   }
 
   closeSession(event) {

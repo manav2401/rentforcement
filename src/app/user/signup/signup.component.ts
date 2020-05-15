@@ -13,6 +13,7 @@ export class SignupComponent implements OnInit {
   usr = new user();
   flag = new Array(6);
   token: string = null;
+  displayMessage: string;
 
   constructor(private userService: UserService, private router: Router) { 
 
@@ -80,7 +81,7 @@ export class SignupComponent implements OnInit {
       console.log("AC");
       this.userService.addUser(usr).subscribe(
         data => {
-          this.storeToken(usr.username);
+          this.storeToken(data, usr.username);
         },
         error => console.log("Error: ", error),
       )
@@ -88,14 +89,15 @@ export class SignupComponent implements OnInit {
 
   }
 
-  storeToken(data) {
-    // console.log("Data: " + data);
-    // this.token = data.slice(6);
-    // console.log("Token: " + this.token);
-    localStorage.setItem("username", data);
-    
-    // redirect to dashboard
-    this.router.navigate(['dashboard/products/all']);
+  storeToken(data, username) {
+
+    if (data=="Added") {
+      localStorage.setItem("username", data);
+      this.displayMessage = null;
+      this.router.navigate(['dashboard/products/all']);
+    } else {
+      this.displayMessage = data;
+    }
 
   }
 

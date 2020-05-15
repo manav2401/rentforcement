@@ -50,27 +50,25 @@ export class ProductService {
     return this.http.get<Product[]>(this.url_list,headers);
   }
 
-  getProductListWithImages(category: String, tmp: boolean): Observable<any>{
+  getProductListWithImages(category: String, toggle: boolean): Observable<any>{
     this.url_list = "http://localhost:8080/productImgs";
     this.url_list = this.url_list + "/" + category;
 
-    let currUserName: string;
-    if (tmp==true) {
-      currUserName = localStorage.getItem("username");
-    } else {
-      currUserName = "@";
+    let currentUserName: string;
+    if(toggle){
+      currentUserName = localStorage.getItem("username");
+    }
+    else{
+      currentUserName = "@"
     }
 
-    // if (currUserName==null || localStorage.getItem("toggle")=="0") {
-    //   currUserName = "@";
-    // }
     const headers = {
       headers: new HttpHeaders({
-        "username": currUserName
+        "username": currentUserName
       })
     }
 
-    console.log("About to fetch Product List" + currUserName);
+    console.log("About to fetch Product List" + currentUserName);
     return this.http.get<ProductVisual[]>(this.url_list,headers);
   }
 

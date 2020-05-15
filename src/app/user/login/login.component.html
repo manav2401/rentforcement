@@ -30,7 +30,8 @@
 			type="text" 
 			name="username"
 			placeholder="Enter username or email address"
-			[(ngModel)]="userLogin.credential">
+			[(ngModel)]="userLogin.credential"
+			ngModel maxlength="10">
 		<br><br>
 	
 		Password

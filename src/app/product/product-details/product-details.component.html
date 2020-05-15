@@ -1,11 +1,8 @@
-<div *ngIf="product">
+<!-- <div *ngIf="product">
     <h3>Name: {{ product.name }}</h3>
      <p>Description: {{ product.desc }}</p>
      <p>Age(In Months): {{ product.age }}</p>
      <p>Category: {{ product.category }}</p>
-     <!-- <p>Date of availability: {{ product.doa |  date:'dd/MM/yyyy'}}</p> -->
-     <!-- <p>Duration: {{ product.duration }}</p> -->
-     <!-- <p>Product Available for next {{daysAvailable}} days!</p> -->
      <p>Price: {{ product.price }}</p> 
      <p>{{availabilityMessage}}</p>
  
@@ -27,4 +24,48 @@
      
  </div>
  <button></button>
- 
+  -->
+
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+
+<div *ngIf="product">
+    <h2 style="text-align:center">Product Details </h2>
+
+    <div class="card">
+    <img src="http://localhost:8080/{{productImage?.image}}" alt="Denim Jeans" style="width:500px">
+    <h1>{{ product.name }}</h1>
+    <p class="price">{{ product.price | currency:'INR'}}</p>
+        <p>Description:  {{ product.desc }} </p>
+        <p>Age(In Months):  {{ product.age }}</p>
+        <p>Category:  {{ product.category }} </p>
+        <!-- <p>Date of availability:  productImage.product.doa </p> -->
+        <!-- <p>Duration:  productImage.product.duration </p> -->
+        <p>{{availabilityMessage}}</p>
+
+    <div class="checkAvailability" *ngIf="available==true">
+        <div class="sessionCheck" *ngIf="session==1; else elseBlock">
+            <button (click)="addToCart($event)">Add to Cart!</button>
+        </div>
+
+        <ng-template #elseBlock>
+            <a routerLink="/login" routerLinkActive="active">
+                <p><button (click)="addToCart($event)">Add to Cart!</button></p>
+            </a>
+        </ng-template>
+    </div>
+
+    <div class="ownerCheck" *ngIf="owner==1">
+        <button (click)="goToProductUpdation()">
+            Update Product
+        </button>
+    </div>
+
+    </div>
+</div>
+</body>
+</html>

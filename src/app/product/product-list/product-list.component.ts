@@ -13,13 +13,13 @@ import { ImageService } from '../image.service';
 export class ProductListComponent implements OnInit, OnChanges {
 
   @Input() category: String;
-  // @Input() toggle: String;
+  @Input() toggle: boolean;
   products: Array<Product>;
   packets: Array<ProductVisual>
 
   cUrl: string;
   arr: string[];
-  toggle: string;
+  // toggle: string;
 
   constructor( private prodService: ProductService, 
     private router: Router, 
@@ -35,21 +35,14 @@ export class ProductListComponent implements OnInit, OnChanges {
     this.getProductList();
     this.cUrl = this.router.url;
     this.arr = this.cUrl.split("/",5);
-    this.toggle = this.arr[4];
+    // this.toggle = this.arr[4];
     console.log("TOGGLE: " + this.toggle);
   }  
 
   getProductList(): void {
 
-    let temp: boolean;
-    if (this.toggle=="u") {
-      // localStorage.setItem("toggle", "1");
-      temp = true;
-    } else {
-      // localStorage.setItem("toggle", "0");
-      temp = false;
-    }
-    this.prodService.getProductListWithImages(this.category, temp).subscribe(data => { this.packets = data});
+
+    this.prodService.getProductListWithImages(this.category, this.toggle).subscribe(data => { this.packets = data});
   }
 
 

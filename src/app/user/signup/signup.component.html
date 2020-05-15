@@ -12,6 +12,10 @@
 <div class="loginbox">
     <h1 align="center">SignUp @RentForcement</h1>
 
+    <br>
+        {{displayMessage}}
+    <br>
+
     <div class="f_left">
         First Name
         <!-- <div class="validate-message" *ngIf="flag[0]==0 || usr.fname==''">
@@ -144,13 +148,14 @@
         placeholder="Enter password"
         [(ngModel)]="usr.password">
     </div>
+    <br><br>
 
     <input 
         type="submit" 
         name="signup" 
         value="Sign Up"  
         (click)="saveUserDetails($event, usr)">
-
+    <br>
     <div class="SignUpMessage">
         <a routerLink="/login" routerLinkActive="active">Already Have an Account? Login Here!</a>
     </div>

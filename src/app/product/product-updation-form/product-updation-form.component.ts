@@ -23,7 +23,8 @@ export class ProductUpdationFormComponent implements OnInit {
   constructor( private productService: ProductService ) { }
 
   ngOnInit(): void {
-    this.product = this.productService.product;
+    this.product = this.productService?.product;
+    console.log("Product Received: " + this.product);
 
     //this.getProductDetails(this?.id);
 

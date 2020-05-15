@@ -1,5 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
 
-<from [formGroup]="productAdditionForm" (ngSubmit)="addProduct()">
+<div class="outer"> 
+    <h2><b>Add Product Details</b></h2>
+</div>
+<form class="container" [formGroup]="productAdditionForm" (ngSubmit)="addProduct()">
     <div>
         <p>Product Name</p>
         <input type="text" placeholder="Product name" formControlName="name" required>
@@ -8,7 +16,7 @@
     </div>
 
     <div>
-        <p>Age</p>
+        <p>Age (in months)</p>
         <input type="text" placeholder="Age" formControlName="age" required>
         <small *ngIf="productAdditionForm.get('age').errors?.error">Should be numeric</small>
     </div>
@@ -24,13 +32,22 @@
         <input type="text" placeholder="Category" formControlName="category" required>
     </div> -->
     <br>
-    <div>
+    <!-- <div>
         <p>Category</p>
         <select class="custom-select" (change)="onChange($event)" formControlName="category">
             <option value="">Category</option>
             <option *ngFor="let cat of category" >{{cat}}</option>
         </select>
-    </div>
+    </div> -->
+
+    <mat-form-field>
+    <mat-label>Category</mat-label>
+    <mat-select formControlName="category">
+        <mat-option *ngFor="let cat of category" [value]="cat">
+            {{ cat }}
+        </mat-option>
+    </mat-select>
+    </mat-form-field>
 
     <!-- <div>
         <p>Date of Availability</p>
@@ -56,7 +73,7 @@
         
 
     <div>
-        <p>Duration</p>
+        <p>Duration (in days)</p>
         <input type="text" placeholder="Duration" formControlName="duration" required>
         <small *ngIf="productAdditionForm.get('duration').errors?.error">Should be numeric</small>
     </div>
@@ -68,8 +85,7 @@
         <!-- <small *ngIf="productAdditionForm.get('price').errors?.required">required</small> -->
     </div>
 
-
-
     <br>
-    <button type="submit" [disabled]="!productAdditionForm.valid" (click)=addProduct()>Proceed</button>
-</from>
+    <button class="btn" type="submit" [disabled]="!productAdditionForm.valid" (click)=addProduct()>Proceed</button>
+</form>
+</html>

@@ -39,7 +39,7 @@ export class ProductUpdationComponent implements OnInit {
     this.productImage = data;
     console.log("Parent Updation ");
     console.log(data );
-    this.productService.product = data.product;
+    this.productService.product = this.productImage.product;
   }
 
   updateProduct( product: Product ){

@@ -98,7 +98,7 @@ export class CartComponent implements OnInit {
   }
 
   backToHome(event) {
-    this.route.navigate(['dashboard']);
+    this.route.navigate(['dashboard/products/all']);
   }
 
   checkout(event) {

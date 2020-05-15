@@ -32,6 +32,7 @@ export class ProductDetailsComponent implements OnInit {
 
   // session
   session: number = 0;
+  owner: number = 0;
 
   constructor(private route: Router, 
     private prodService: ProductService,
@@ -47,8 +48,10 @@ export class ProductDetailsComponent implements OnInit {
     
     if (localStorage.getItem("username")) {
       this.session = 1;
+      this.owner = 1;
     } else {
       this.session = 0;
+      this.owner = 1;
     }
 
   }

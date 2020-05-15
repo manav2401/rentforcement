@@ -70,7 +70,7 @@
 
 .SignUpMessage {
     font-size: large;
-    padding-left: 2cm;
+    padding-left: 100px;
 }
 
 .box-area{
@@ -144,8 +144,8 @@
 } */
 
 .loginbox{
-    width:460px;
-    height:540px;
+    width:500px;
+    height:620px;
     background: #000;
     opacity: 100%;
     color:#fff;
